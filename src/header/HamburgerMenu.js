@@ -9,40 +9,40 @@ export default class HamburgerMenu extends Component {
     		<div class="hamburger_menu_content text-right">
     			<ul class="menu_top_nav">
     				<li class="menu_item has-children">
-    					<a href="#">
+    					<a href="./">
     						usd
     						<i class="fa fa-angle-down"></i>
     					</a>
     					<ul class="menu_selection">
-    						<li><a href="#">cad</a></li>
-    						<li><a href="#">aud</a></li>
-    						<li><a href="#">eur</a></li>
-    						<li><a href="#">gbp</a></li>
+    						<li><a href="./">cad</a></li>
+    						<li><a href="./">aud</a></li>
+    						<li><a href="./">eur</a></li>
+    						<li><a href="./">gbp</a></li>
     					</ul>
     				</li>
     				<li class="menu_item has-children">
-    					<a href="#">
+    					<a href="./">
     						English
     						<i class="fa fa-angle-down"></i>
     					</a>
     					<ul class="menu_selection">
-    						<li><a href="#">French</a></li>
-    						<li><a href="#">Italian</a></li>
-    						<li><a href="#">German</a></li>
-    						<li><a href="#">Spanish</a></li>
+    						<li><a href="./">French</a></li>
+    						<li><a href="./">Italian</a></li>
+    						<li><a href="./">German</a></li>
+    						<li><a href="./">Spanish</a></li>
     					</ul>
     				</li>
     				<li class="menu_item has-children">
-    					<a href="#">
+    					<a href="./">
     						My Account
     						<i class="fa fa-angle-down"></i>
     					</a>
     					<ul class="menu_selection">
-    						<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-    						<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+    						<li><a href="./"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+    						<li><a href="./"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
     					</ul>
     				</li>
-    				<li class="menu_item"><a href="#">home</a></li>
+    				<li class="menu_item"><a href="./">home</a></li>
     				<li class="menu_item"><a href="./shop">shop</a></li>
     				<li class="menu_item"><a href="./contact">contact</a></li>
     			</ul>
