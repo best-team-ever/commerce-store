@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Cart from './modules/cart/cart.js'
+
+import TopNav from './header/TopNav';
+import MainNav from './header/MainNav';
+import HamburgerMenu from './header/HamburgerMenu';
+import Footer from './footer/Footer';
+
+import CategoriesList from "./modules/categories/CategoriesList";
 
 class App extends Component {
   constructor(props) {
@@ -36,9 +42,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      	<header class="header">
+          <TopNav />
+          <MainNav />
         </header>
         <span>
           <Cart
@@ -49,6 +55,15 @@ class App extends Component {
             deleteItem={this.deleteItem}
           />
         </span>
+
+        <div class="fs_menu_overlay"></div>
+        <HamburgerMenu />
+        <div class="main_slider" />
+
+        <CategoriesList/>
+
+        <Footer/>
+
       </div>
     );
   }
