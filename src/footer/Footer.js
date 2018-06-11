@@ -17,8 +17,8 @@ export default class Footer extends Component {
             <div class="col-lg-6">
               <div class="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
                 <ul>
-                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                  <li><a href="./"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="./"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                 </ul>
               </div>
             </div>
