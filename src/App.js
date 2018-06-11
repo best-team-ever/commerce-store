@@ -5,6 +5,7 @@ import MainNav from './header/MainNav';
 import HamburgerMenu from './header/HamburgerMenu';
 import Banner from './banner/Banner';
 import Footer from './footer/Footer';
+import CategoriesList from "./modules/categories/CategoriesList";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
         <div class="main_slider" />
 
         <Banner />
+        <CategoriesList/>
 
         <Footer/>
       </div>
