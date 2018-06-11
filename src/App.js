@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import TopNav from './header/TopNav';
 import MainNav from './header/MainNav';
 import HamburgerMenu from './header/HamburgerMenu';
 import Footer from './footer/Footer';
+
 import CategoriesList from "./modules/categories/CategoriesList";
 
 class App extends Component {
@@ -14,6 +16,7 @@ class App extends Component {
           <TopNav />
           <MainNav />
         </header>
+
         <div class="fs_menu_overlay"></div>
         <HamburgerMenu />
         <div class="main_slider" />
@@ -21,6 +24,9 @@ class App extends Component {
         <CategoriesList/>
 
         <Footer/>
+
+
+
       </div>
     );
   }

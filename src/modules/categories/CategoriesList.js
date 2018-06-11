@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { fetchCategories } from "../../store/actions/categoriesAction";
 import { connect } from "react-redux";
+
 import './Banner.css';
+
 
 class CategoriesList extends Component{
   getCategories(){
@@ -48,4 +50,6 @@ const mapStateToProps = state => ({
   error: state.categories.error
 });
 
+
 export default connect(mapStateToProps)(CategoriesList);
+
