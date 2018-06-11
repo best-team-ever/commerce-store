@@ -2,27 +2,13 @@ import React, { Component } from "react";
 import { fetchCategories } from "../../store/actions/categoriesAction";
 import { connect } from "react-redux";
 
+import './Banner.css';
+
+
 class CategoriesList extends Component{
   getCategories(){
     let { error, loading, categories } = this.props;
-    if (error){
-      return (
-        <div>Error! {error.message}</div>
-      );
-    }else if (loading){
-      return (
-        <div>Loading...</div>
-      )
-    }else{
-      return (
-        console.log("categories", categories),
-        <ul>
-          {categories.map(category =>
-            <li key={category.id}>{category.label}</li>
-          )}
-        </ul>
-      );
-    }
+    return {categories: categories, error: error, loading: loading};
   }
 
 
@@ -31,8 +17,29 @@ class CategoriesList extends Component{
   }
 
   render(){
+    let list = "No categories";
+    const result = this.getCategories();
+    if (result.categories) {
+      console.log(result.categories);
+      list = result.categories.map(category => (
+        <div key={category.id} class="col-md-4">
+          <div class="banner_item align-items-center">
+            <div class="banner_category">
+              <a href={"categories/" + category.id + "/products"}>{category.label}</a>
+            </div>
+          </div>
+        </div>
+      ));
+    }
+
     return (
-      <div>{this.getCategories()}</div>
+      <div class="banner">
+        <div class="container">
+          <div class="row">
+            {list}
+          </div>
+        </div>
+      </div>
     )
   }
 }
@@ -43,4 +50,6 @@ const mapStateToProps = state => ({
   error: state.categories.error
 });
 
+
 export default connect(mapStateToProps)(CategoriesList);
+
