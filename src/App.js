@@ -8,7 +8,11 @@ import MainNav from './header/MainNav';
 import HamburgerMenu from './header/HamburgerMenu';
 import Banner from './banner/Banner';
 import Footer from './footer/Footer';
+<<<<<<< HEAD
 >>>>>>> first commit before rebase
+=======
+import CategoriesList from "./modules/categories/CategoriesList";
+>>>>>>> init categories list
 
 class App extends Component {
   render() {
@@ -26,6 +30,7 @@ class App extends Component {
         <div class="main_slider" />
 
         <Banner />
+        <CategoriesList/>
 
         <Footer/>
 >>>>>>> first commit before rebase
