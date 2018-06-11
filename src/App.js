@@ -8,6 +8,8 @@ import HamburgerMenu from './header/HamburgerMenu';
 import Footer from './footer/Footer';
 
 import CategoriesList from "./modules/categories/CategoriesList";
+import ShippingForm from './modules/shipping/shipping.js';
+import Title from './modules/shipping/title.js';
 
 class App extends Component {
   constructor(props) {
@@ -64,10 +66,14 @@ class App extends Component {
 
         <Footer/>
 
+        <Title />
+        <ShippingForm />
+
       </div>
     );
   }
 }
+
 
 
 
