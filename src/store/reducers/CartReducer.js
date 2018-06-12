@@ -13,7 +13,8 @@ export default (state = initialState, action) => {
       // }
       // return [...state, action.payload.productsOfCart]
       return {
-        productsOfCart: action.payload.productsOfCart
+        ...state,
+        productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     default:
       return state;

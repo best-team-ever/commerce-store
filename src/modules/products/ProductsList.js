@@ -3,6 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../../store/actions/productsAction";
 
+
+import TopNav from '../header/TopNav';
+import MainNav from '../header/MainNav';
+import HamburgerMenu from '../header/HamburgerMenu';
+import Footer from '../footer/Footer';
+
 import './ProductsList.css';
 
 const urlImage = "https://www.decathlon.fr/media/";
@@ -74,12 +80,24 @@ class ProductsList extends Component{
     }
 
     return(
-      <div className="container">
-        <div className="product-grid">
-          <div className="row">
-            {list}
+      <div className="App">
+        <header className="header">
+          <TopNav/>
+          <MainNav/>
+        </header>
+        <div className="fs_menu_overlay"></div>
+        <HamburgerMenu/>
+        <div className="main_slider"/>
+
+        <div className="container">
+          <div className="product-grid">
+            <div className="row">
+              {list}
+            </div>
           </div>
         </div>
+
+        <Footer/>
       </div>
     )
   }
