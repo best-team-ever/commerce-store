@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { fetchCategories, fetchCategoryProducts } from "../../store/actions/categoriesAction";
+import { fetchCategories } from "../../store/actions/categoriesAction";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import './Banner.css';
-
 import './Banner.css';
 
 class CategoriesList extends Component{
@@ -36,8 +34,8 @@ class CategoriesList extends Component{
               <Link to={`/categories/${category.id}/products`}>{category.label}</Link>
             </div>
           </div>
-        );
-      });
+        </div>
+      ));
     }
 
     return (
