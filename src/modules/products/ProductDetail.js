@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
+import { addToCart } from "../../store/actions/cartAction";
+import { Link } from 'react-router-dom';
 
 class ProductDetail extends Component{
+
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this)
+  }
 
   getProductDetail(){
     let { error, loading, product } = this.props;
@@ -11,6 +19,26 @@ class ProductDetail extends Component{
       error: error,
       loading: loading
     }
+  }
+
+  handleClick = () => {
+    let product = this.getProductDetail().product;
+    this.props.addToCart({
+      id: product.id,
+      decathlon_id: product.decathlon_id,
+      title: product.title,
+      description: product.description,
+      brand_id: product.brand_id,
+      min_price: product.min_price,
+      max_price: product.max_price,
+      crossed_price: product.crossed_price,
+      percent_reduction: product.percent_reduction,
+      image_path: product.image_path,
+      rating: product.rating
+    });
+
+    console.log("addToCart: ", this.props.productsOfCart);
+
   }
 
   componentDidMount(){
@@ -37,7 +65,11 @@ class ProductDetail extends Component{
         <ul>
           <li>{product.title}</li>
           <li>{product.description}</li>
-          <li><button>Add to Cart</button></li>
+          <li>
+            <Link to="/cart">
+              <button onClick={this.handleClick}>Add to Cart</button>
+            </Link>
+          </li>
         </ul>
       </div>
 
@@ -52,4 +84,10 @@ const mapStateToProps = state => ({
   error: state.product.error
 })
 
-export default connect(mapStateToProps)(ProductDetail);
+function mapDispatchToProps  (dispatch) {
+  let actions = bindActionCreators({addToCart}, dispatch);
+  return {...actions, dispatch};
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
