@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../../store/actions/productsAction";
-import { Link } from "react-router-dom";
-
 
 import './ProductsList.css';
 
