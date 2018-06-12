@@ -1,0 +1,24 @@
+.cardCoteACote {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signs {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign {
+  margin: 0;
+  padding: 0;
+}
+
+.qty {
+  display: flex;
+  flex-direction: row;
+}
