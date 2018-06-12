@@ -5,6 +5,12 @@ import { fetchProductDetail } from "../../store/actions/productDetailAction";
 import { addToCart } from "../../store/actions/cartAction";
 import { Link } from 'react-router-dom';
 
+import TopNav from "../header/TopNav";
+import MainNav from '../header/MainNav';
+import HamburgerMenu from '../header/HamburgerMenu';
+import Footer from '../footer/Footer';
+
+
 class ProductDetail extends Component{
 
   constructor(props){
@@ -58,16 +64,29 @@ class ProductDetail extends Component{
   render(){
     let product = this.getProductDetail().product;
     return(
-      <div>
-        <ul>
-          <li>{product.title}</li>
-          <li>{product.description}</li>
-          <li>
-            <Link to="/cart">
-              <button onClick={this.handleClick}>Add to Cart</button>
-            </Link>
-          </li>
-        </ul>
+      <div className="App">
+        <header className="header">
+          <TopNav/>
+          <MainNav/>
+        </header>
+        <div className="fs_menu_overlay"></div>
+        <HamburgerMenu/>
+        <div className="main_slider"/>
+
+
+        <div>
+          <ul>
+            <li>{product.title}</li>
+            <li>{product.description}</li>
+            <li>
+              <Link to="/cart">
+                <button onClick={this.handleClick}>Add to Cart</button>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <Footer/>
       </div>
 
     )

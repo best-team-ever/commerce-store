@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 // import { getCounter } from "../../store/counter/selectors";
 // import { incrementDecrement } from "../../store/counter/handlers";
 import './cart.css';
-// import cartReducer from "../../store/reducers/CartReducer";
+import TopNav from "../header/TopNav";
+import MainNav from '../header/MainNav';
+import HamburgerMenu from '../header/HamburgerMenu';
+import Footer from '../footer/Footer';
+
 
 class Cart extends Component {
   constructor(props) {
@@ -49,11 +53,9 @@ class Cart extends Component {
 
   render(){
     let productsOfCart = this.getProductOfCart().productsOfCart;
-    let list = [];
-    list.push(productsOfCart);
     let productsList = [];
-    if(list){
-      productsList = list.map((product) => (
+    if(productsOfCart){
+      productsList = productsOfCart.map((product) => (
         <tr key={product.id}>
           <td>{product.title}</td>
           <td>{product.description}</td>
@@ -76,23 +78,32 @@ class Cart extends Component {
 
 
     return (
+      <div className="App">
+        <header className="header">
+          <TopNav/>
+          <MainNav/>
+        </header>
+        <div className="fs_menu_overlay"></div>
+        <HamburgerMenu/>
+        <div className="main_slider"/>
 
-      <div >
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div className="cardCoteACote">
-          <button onClick={this.return}>Return</button>
-          <span>Panier</span>
-          <button onClick={this.validCart}>Valid</button>
-        </div>
+
         <div>
-          <table class="table table-striped">
-            <thead>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <div className="cardCoteACote">
+            <button onClick={this.return}>Return</button>
+            <span>Panier</span>
+            <button onClick={this.validCart}>Valid</button>
+          </div>
+          <div>
+            <table className="table table-striped">
+              <thead>
               <tr>
                 <th></th>
                 <th>Product</th>
@@ -101,21 +112,26 @@ class Cart extends Component {
                 <th>Delete</th>
                 <th>Total price</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               {productsList}
-            </tbody>
-          </table>
-        </div>
-        <div className="total">
-          Total 65,00 €
-        </div>
-        <div className="cardCoteACote">
-          <button onClick={this.return}>Return</button>
+              </tbody>
+            </table>
+          </div>
+          <div className="total">
+            Total 65,00 €
+          </div>
+          <div className="cardCoteACote">
+            <button onClick={this.return}>Return</button>
 
-          <button onClick={this.validCart}>Valid</button>
+            <button onClick={this.validCart}>Valid</button>
+          </div>
         </div>
+
+
+        <Footer/>
       </div>
+
     )
   }
 }
