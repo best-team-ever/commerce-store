@@ -15,7 +15,6 @@ class ProductsList extends Component{
 
   componentDidMount(){
     this.props.dispatch(fetchProducts(this.props.match.params.id));
-    console.log("xxxxxxxxxxxxxvvr: ", this.props.match);
   }
 
   componentWillReceiveProps (nextProps) {
