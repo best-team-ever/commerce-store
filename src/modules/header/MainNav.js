@@ -4,31 +4,31 @@ import './MainNav.css';
 export default class MainNav extends Component {
   render() {
     return (
-      <div class="main_nav_container">
-  			<div class="container">
-  				<div class="row">
-  					<div class="col-lg-12 text-right">
-  						<div class="logo_container">
+      <div className="main_nav_container">
+  			<div className="container">
+  				<div className="row">
+  					<div className="col-lg-12 text-right">
+  						<div className="logo_container">
   							<a href="./">commerce-<span>store</span></a>
   						</div>
-  						<nav class="navbar">
-  							<ul class="navbar_menu">
+  						<nav className="navbar">
+  							<ul className="navbar_menu">
   								<li><a href="./">home</a></li>
   								<li><a href="./">shop</a></li>
   								<li><a href="./contact">contact</a></li>
   							</ul>
-  							<ul class="navbar_user">
-  								<li><a href="./"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-  								<li><a href="./"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-  								<li class="checkout">
+  							<ul className="navbar_user">
+  								<li><a href="./"><i className="fa fa-search" aria-hidden="true"></i></a></li>
+  								<li><a href="./"><i className="fa fa-user" aria-hidden="true"></i></a></li>
+  								<li className="checkout">
   									<a href="./">
-  										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-  										<span id="checkout_items" class="checkout_items">2</span>
+  										<i className="fa fa-shopping-cart" aria-hidden="true"></i>
+  										<span id="checkout_items" className="checkout_items">2</span>
   									</a>
   								</li>
   							</ul>
-  							<div class="hamburger_container">
-  								<i class="fa fa-bars" aria-hidden="true"></i>
+  							<div className="hamburger_container">
+  								<i className="fa fa-bars" aria-hidden="true"></i>
   							</div>
   						</nav>
   					</div>
