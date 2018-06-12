@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './shipping.css';
+// import Title from './modules/shipping/title.js';
 
 
 
@@ -15,8 +16,12 @@ class Title extends Component {
 
 
 class ShippingForm extends Component {
+
   render() {
     return (
+      <div>
+      {console.log("shippppp")}  
+      <Title />
       <div className='shippingForm'>
 
         <form className="form">
@@ -47,6 +52,7 @@ class ShippingForm extends Component {
     <input type="submit" value="Submit" />
   </div>
   </form>
+</div>
 </div>
 
     )

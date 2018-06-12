@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../../store/actions/productsAction";
+import { Link } from "react-router-dom";
+
 
 import './ProductsList.css';
 
@@ -29,8 +31,8 @@ class ProductsList extends Component{
   }
 
   componentDidUpdate (prevProps) {
-    let oldId = prevProps.match.params.id
-    let newId = this.props.match.params.id
+    let oldId = prevProps.match.params.id;
+    let newId = this.props.match.params.id;
     if (newId !== oldId)
       this.props.dispatch(fetchProducts(this.props.match.params.id));
   }

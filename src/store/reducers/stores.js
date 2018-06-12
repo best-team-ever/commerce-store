@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 import logger from "redux-logger";
 import categoriesReducer from "./CategoriesReducer";
 import productsReducer from "./ProductsReducer";
+import productDetailReducer from "./ProductDetailReducer";
 
 let rootReducers = combineReducers({
   categories: categoriesReducer,
-  products: productsReducer
+  products: productsReducer,
+  product: productDetailReducer
 });
 
 let store;
