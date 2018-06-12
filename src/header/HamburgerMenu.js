@@ -26,6 +26,7 @@ export default class HamburgerMenu extends Component {
     						<i className="fa fa-angle-down"></i>
     					</a>
     					<ul className="menu_selection">
+
     						<li><a href="./">French</a></li>
     						<li><a href="./">Italian</a></li>
     						<li><a href="./">German</a></li>

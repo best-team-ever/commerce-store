@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.title {
+  color: black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

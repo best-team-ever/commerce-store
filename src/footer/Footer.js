@@ -19,6 +19,7 @@ export default class Footer extends Component {
                 <ul>
                   <li><a href="./"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
                   <li><a href="./"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+
                 </ul>
               </div>
             </div>
@@ -27,6 +28,7 @@ export default class Footer extends Component {
             <div className="col-lg-12">
               <div className="footer_nav_container">
                 <div className="cr">©2018 All Rights Reserverd.</div>
+
               </div>
             </div>
           </div>
