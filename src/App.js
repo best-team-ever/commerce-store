@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import Cart from './modules/cart/cart.js'
 
 import TopNav from './header/TopNav';
 import MainNav from './header/MainNav';
 import HamburgerMenu from './header/HamburgerMenu';
 import Footer from './footer/Footer';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import ProductsList from "./modules/products/ProductsList";
 
 import CategoriesList from "./modules/categories/CategoriesList";
 import ShippingForm from './modules/shipping/shipping.js';
@@ -62,7 +66,12 @@ class App extends Component {
         <HamburgerMenu />
         <div class="main_slider" />
 
-        <CategoriesList/>
+         <Router>
+          <Switch>
+            <Route exact path="/" component={CategoriesList}/>
+            <Route path="/categories/:id/products" component={ProductsList}></Route>
+          </Switch>
+        </Router>
 
         <Footer/>
 
@@ -74,8 +83,5 @@ class App extends Component {
   }
 }
 
-
-
-
-
 export default App;
+
