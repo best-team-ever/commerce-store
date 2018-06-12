@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './css/main_styles.css';
+import './css/responsive.css';
 import './App.css';
 
 import TopNav from './modules/header/TopNav';
@@ -25,13 +27,11 @@ class App extends Component {
           <TopNav />
           <MainNav />
         </header>
-
-
         <div className="fs_menu_overlay"></div>
         <HamburgerMenu />
         <div className="main_slider" />
 
-         <Router>
+      <Router>
           <Switch>
             <Route exact path="/" component={CategoriesList}/>
             <Route path="/categories/:id/products" component={ProductsList}></Route>
