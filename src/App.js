@@ -6,10 +6,13 @@ import MainNav from './modules/header/MainNav';
 import HamburgerMenu from './modules/header/HamburgerMenu';
 import Footer from './modules/footer/Footer';
 import Cart from './modules/cart/cart.js'
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProductsList from "./modules/products/ProductsList";
 
 import CategoriesList from "./modules/categories/CategoriesList";
+import ProductsList from "./modules/products/ProductsList";
+import ProductDetail from "./modules/products/ProductDetail";
+
 import ShippingForm from './modules/shipping/shipping.js';
 
 
@@ -32,6 +35,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={CategoriesList}/>
             <Route path="/categories/:id/products" component={ProductsList}></Route>
+            <Route path="/product/:id" component={ProductDetail}/>
             <Route path="/cart" component={Cart}/>
             <Route path="/shipform" componant={ShippingForm}/>
           </Switch>

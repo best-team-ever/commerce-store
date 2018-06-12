@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchProducts } from "../../store/actions/productsAction";
+import { Link } from "react-router-dom";
+
 
 class ProductsList extends Component{
 
@@ -15,7 +17,6 @@ class ProductsList extends Component{
 
   componentDidMount(){
     this.props.dispatch(fetchProducts(this.props.match.params.id));
-    console.log("xxxxxxxxxxxxxvvr: ", this.props.match);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -25,8 +26,8 @@ class ProductsList extends Component{
   }
 
   componentDidUpdate (prevProps) {
-    let oldId = prevProps.match.params.id
-    let newId = this.props.match.params.id
+    let oldId = prevProps.match.params.id;
+    let newId = this.props.match.params.id;
     if (newId !== oldId)
       this.props.dispatch(fetchProducts(this.props.match.params.id));
   }
@@ -34,8 +35,10 @@ class ProductsList extends Component{
 
   render(){
     return(
-      this.getProducts().products.map((product, index) => (
-        <div key={index}>{product.title}</div>
+      this.getProducts().products.map((product) => (
+        <div key={product.id}>
+          <Link to={`/product/${product.id}`}>{product.title}</Link>
+        </div>
       ))
     )
   }

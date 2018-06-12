@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './Banner.css';
 
-import './Banner.css';
-
 class CategoriesList extends Component{
   getCategories(){
     let { error, loading, categories } = this.props;
