@@ -11,37 +11,9 @@ import ProductsList from "./modules/products/ProductsList";
 
 import CategoriesList from "./modules/categories/CategoriesList";
 import ShippingForm from './modules/shipping/shipping.js';
-import Title from './modules/shipping/title.js';
+
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      toto: "",
-    };
-    this.return = this.return.bind (this);
-    this.validCart = this.validCart.bind (this);
-  }
-
-  return = () => {
-    console.log("return...");
-  };
-
-  validCart = () => {
-    console.log("valid cart");
-  };
-
-  increment = () => {
-    console.log("plus +");
-  };
-
-  decrement = () => {
-    console.log("moins -");
-  };
-
-  deleteItem = () => {
-    console.log("deleteItem");
-  };
 
   render() {
     return (
@@ -50,31 +22,22 @@ class App extends Component {
           <TopNav />
           <MainNav />
         </header>
-        <span>
-          <Cart
-            return={this.return}
-            validCart={this.validCart}
-            increment={this.increment}
-            decrement={this.decrement}
-            deleteItem={this.deleteItem}
-          />
-        </span>
 
-        <div class="fs_menu_overlay"></div>
+
+        <div className="fs_menu_overlay"></div>
         <HamburgerMenu />
-        <div class="main_slider" />
+        <div className="main_slider" />
 
          <Router>
           <Switch>
             <Route exact path="/" component={CategoriesList}/>
             <Route path="/categories/:id/products" component={ProductsList}></Route>
+            <Route path="/cart" component={Cart}/>
+            <Route path="/shipform" componant={ShippingForm}/>
           </Switch>
         </Router>
 
         <Footer/>
-
-        <Title />
-        <ShippingForm />
 
       </div>
     );
