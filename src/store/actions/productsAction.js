@@ -14,7 +14,7 @@ export const fetchCategoriesProductsFailure = (error) => ({
   payload: { error }
 })
 
-export function productsAction(categoryId) {
+export function fetchProducts(categoryId) {
   return dispatch => {
     dispatch(fetchCategoriesProductsBegin());
     return fetch(`https://decath-product-api.herokuapp.com/categories/${categoryId}/products`)
