@@ -10,7 +10,7 @@ let rootReducers = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
   product: productDetailReducer,
-  addToCart: cartReducer
+  cartReducer
 });
 
 let store;
