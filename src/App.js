@@ -3,13 +3,13 @@ import './App.css';
 
 import Cart from './modules/cart/cart.js'
 
-import TopNav from './header/TopNav';
-import MainNav from './header/MainNav';
-import HamburgerMenu from './header/HamburgerMenu';
-import Footer from './footer/Footer';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ProductsList from "./modules/products/ProductsList";
+import TopNav from './modules/header/TopNav';
+import MainNav from './modules/header/MainNav';
+import HamburgerMenu from './modules/header/HamburgerMenu';
+import Footer from './modules/footer/Footer';
 
 import CategoriesList from "./modules/categories/CategoriesList";
 import ShippingForm from './modules/shipping/shipping.js';

@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import { fetchCategories } from "../../store/actions/categoriesAction";
+import { fetchCategories, fetchCategoryProducts } from "../../store/actions/categoriesAction";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './Banner.css';
 
 import './Banner.css';
 
-
 class CategoriesList extends Component{
   getCategories(){
     let { error, loading, categories } = this.props;
-    return {categories: categories, error: error, loading: loading};
+    return {
+      categories: categories,
+      error: error,
+      loading: loading
+    };
   }
-
 
   componentDidMount() {
     this.props.dispatch(fetchCategories());
@@ -34,8 +36,8 @@ class CategoriesList extends Component{
               <Link to={`/categories/${category.id}/products`}>{category.label}</Link>
             </div>
           </div>
-        </div>
-      ));
+        );
+      });
     }
 
     return (
@@ -59,4 +61,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(CategoriesList);
-
