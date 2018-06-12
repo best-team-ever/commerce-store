@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './css/main_styles.css';
+import './css/responsive.css';
 import './App.css';
 
 import TopNav from './modules/header/TopNav';
@@ -50,21 +52,19 @@ class App extends Component {
           <TopNav />
           <MainNav />
         </header>
-        <span>
-          <Cart
-            return={this.return}
-            validCart={this.validCart}
-            increment={this.increment}
-            decrement={this.decrement}
-            deleteItem={this.deleteItem}
-          />
-        </span>
 
         <div class="fs_menu_overlay"></div>
         <HamburgerMenu />
         <div class="main_slider" />
+        <Cart
+          return={this.return}
+          validCart={this.validCart}
+          increment={this.increment}
+          decrement={this.decrement}
+          deleteItem={this.deleteItem}
+        />
 
-         <Router>
+        <Router>
           <Switch>
             <Route exact path="/" component={CategoriesList}/>
             <Route path="/categories/:id/products" component={ProductsList}></Route>
