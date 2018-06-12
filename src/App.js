@@ -15,9 +15,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
+      	<header className="header">
+          <TopNav />
+          <MainNav />
+
         </header>
         <div className="fs_menu_overlay"></div>
         <HamburgerMenu/>

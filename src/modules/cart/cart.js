@@ -9,11 +9,30 @@ import HamburgerMenu from '../header/HamburgerMenu';
 import Footer from '../footer/Footer';
 
 
+const urlImage = "https://www.decathlon.fr/media/";
+let total = 0;
+
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       toto: "",
+      productOfCart: [
+        {
+        "decathlon_id": 8354464,
+        "title": "Basic L print Long Gold Fusion",
+        "min_price": 9.99,
+        "image_path": "835/8354464/zoom_726db88653a94070ab9e6eef0bd48218.jpg",
+        "qty": 0,
+        },
+        {
+        "decathlon_id": 8339112,
+        "title": "GILET TAIGA 300 VERT",
+        "min_price": 34.99,
+        "image_path": "833/8339112/zoom_b3c967f1315d4f6a9fbbf74c38cf3593.jpg",
+        "qty": 3,
+        }
+      ],
     };
     this.return = this.return.bind (this);
     this.validCart = this.validCart.bind (this);
@@ -47,9 +66,25 @@ class Cart extends Component {
     console.log("deleteItem");
   };
 
+  updateQty = (event, index) => {
+    const newArray = this.state.productOfCart.map((value, indexMap) => {
+      if (index === indexMap) {
+        return {...value, qty: event}
+      } else {
+        return value;
+      }
+    })
+    this.setState({productOfCart: newArray});
+  }
+
+  total = (value) => {
+    total = total + value
+  }
+
   componentDidMount() {
     console.log("didMount");
   }
+
 
   render(){
     let productsOfCart = this.getProductOfCart().productsOfCart;
@@ -88,22 +123,24 @@ class Cart extends Component {
         <div className="main_slider"/>
 
 
+      <div >
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div className="cardCoteACote">
+          <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
+          <h3>My cart</h3>
+          <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
+        </div>
         <div>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <div className="cardCoteACote">
-            <button onClick={this.return}>Return</button>
-            <span>Panier</span>
-            <button onClick={this.validCart}>Valid</button>
-          </div>
-          <div>
-            <table className="table table-striped">
-              <thead>
+
+          <table className="table table-striped">
+            <thead>
+
               <tr>
                 <th></th>
                 <th>Product</th>
@@ -112,20 +149,45 @@ class Cart extends Component {
                 <th>Delete</th>
                 <th>Total price</th>
               </tr>
-              </thead>
-              <tbody>
-              {productsList}
-              </tbody>
-            </table>
-          </div>
-          <div className="total">
-            Total 65,00 €
-          </div>
-          <div className="cardCoteACote">
-            <button onClick={this.return}>Return</button>
+            </thead>
+            <tbody>
+              {
+              this.state.productOfCart.map((cartItem, index) => {
+                return (
+                  <tr key={index}>
+                    <td><img src={`${urlImage}${cartItem.image_path}`} className="img-thumbnail" width="20%"/></td>
+                    <td>{cartItem.title}</td>
+                    <td>{cartItem.min_price} €</td>
+                    <td className="qty">
+                      <div className="signs">
+                        {/* <img src="https://www.decathlon.fr/skins/images/decat/p.gif"/> */}
+                        <button type="button" className="btn btn-secondary" onClick={this.increment}>+</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.decrement}>-</button>
+                      </div>
+                        <input type="text" className="qty2" value={cartItem.qty} onChange={(event) => this.updateQty(event.target.value,index)}>
+                        </input>
+                    </td>
+                    <td>
+                      <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
+                    </td>
+                    <td>{cartItem.min_price*cartItem.qty} €</td>
+                    {this.total(cartItem.min_price*cartItem.qty)}
+                  </tr>
+                )
+                })
+                // <tr><th colSpan="2">{total} €</th></tr>
+              }
 
-            <button onClick={this.validCart}>Valid</button>
-          </div>
+
+            </tbody>
+          </table>
+        </div>
+        <div className="total">
+          {total} €
+        </div>
+        <div className="cardCoteACote">
+          <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
+          <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
         </div>
 
 
@@ -135,19 +197,7 @@ class Cart extends Component {
     )
   }
 }
-// function Cart(props) {
-//
-// }
 
-{/* <span>
-  <Cart
-    return={this.return}
-    validCart={this.validCart}
-    increment={this.increment}
-    decrement={this.decrement}
-    deleteItem={this.deleteItem}
-  />
-</span> */}
 
 
 const mapStateToProps = (state) => (
