@@ -9,7 +9,7 @@ class ProductDetail extends Component{
 
   constructor(props){
     super(props);
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
   getProductDetail(){
@@ -36,9 +36,6 @@ class ProductDetail extends Component{
       image_path: product.image_path,
       rating: product.rating
     });
-
-    console.log("addToCart: ", this.props.productsOfCart);
-
   }
 
   componentDidMount(){
@@ -81,7 +78,8 @@ class ProductDetail extends Component{
 const mapStateToProps = state => ({
   product: state.product.items,
   loading: state.product.loading,
-  error: state.product.error
+  error: state.product.error,
+  // productsOfCart: state.
 })
 
 function mapDispatchToProps  (dispatch) {

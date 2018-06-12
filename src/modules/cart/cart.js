@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 // import { getCounter } from "../../store/counter/selectors";
 // import { incrementDecrement } from "../../store/counter/handlers";
 import './cart.css';
+// import cartReducer from "../../store/reducers/CartReducer";
 
 class Cart extends Component {
   constructor(props) {
@@ -12,6 +13,14 @@ class Cart extends Component {
     };
     this.return = this.return.bind (this);
     this.validCart = this.validCart.bind (this);
+  }
+
+  getProductOfCart(){
+    let { productsOfCart } = this.props;
+    console.log("addToCart: ", this.props.productsOfCart);
+    return {
+      productsOfCart: productsOfCart
+    }
   }
 
   return = () => {
@@ -39,6 +48,33 @@ class Cart extends Component {
   }
 
   render(){
+    let productsOfCart = this.getProductOfCart().productsOfCart;
+    let list = [];
+    list.push(productsOfCart);
+    let productsList = [];
+    if(list){
+      productsList = list.map((product) => (
+        <tr key={product.id}>
+          <td>{product.title}</td>
+          <td>{product.description}</td>
+          <td>{product.min_price}</td>
+          <td className="qty">
+            <div className="signs">
+              <button onClick={this.increment}>+</button>
+              <button onClick={this.decrement}>-</button>
+            </div>
+            <input type="text" value="2" onChange={console.log("on Change2")}>
+            </input>
+          </td>
+          <td>
+            <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
+          </td>
+          <td>20,00 €</td>
+        </tr>
+      ));
+    }
+
+
     return (
 
       <div >
@@ -67,40 +103,7 @@ class Cart extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>photo</td>
-                <td>desciption1</td>
-                <td>10,00 €</td>
-                <td className="qty">
-                  <div className="signs">
-                    <button onClick={this.increment}>+</button>
-                    <button onClick={this.decrement}>-</button>
-                  </div>
-                    <input type="text" value="2" onChange={console.log("on Change2")}>
-                  </input>
-                </td>
-                <td>
-                  <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
-                </td>
-                <td>20,00 €</td>
-              </tr>
-              <tr>
-                <td>photo</td>
-                <td>desciption2</td>
-                <td>15,00 €</td>
-                <td className="qty">
-                  <div className="signs">
-                    <button onClick={this.increment}>+</button>
-                    <button onClick={this.decrement}>-</button>
-                  </div>
-                    <input type="text" value="3" onChange={console.log("on Change3")}>
-                  </input>
-                </td>
-                <td>
-                  <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
-                </td>
-                <td>45,00 €</td>
-              </tr>
+              {productsList}
             </tbody>
           </table>
         </div>
@@ -130,5 +133,10 @@ class Cart extends Component {
   />
 </span> */}
 
-// export default connect(mapStateToProps)(Cart);
-export default (Cart);
+
+const mapStateToProps = (state) => (
+  {productsOfCart: state.cartReducer.productsOfCart}
+)
+export default connect(mapStateToProps)(Cart);
+
+// export default (Cart);
