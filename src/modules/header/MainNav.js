@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import './MainNav.css';
 
 export default class MainNav extends Component {
@@ -9,7 +10,7 @@ export default class MainNav extends Component {
   				<div className="row">
   					<div className="col-lg-12 text-right">
   						<div className="logo_container">
-  							<a href="./">commerce-<span>store</span></a>
+								<Link to="/">commerce-<span>store</span></Link>
   						</div>
   						<nav className="navbar">
   							<ul className="navbar_menu">
