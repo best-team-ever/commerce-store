@@ -123,23 +123,23 @@ class Cart extends Component {
         <div className="main_slider"/>
 
 
-      <div >
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div className="cardCoteACote">
-          <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
-          <h3>My cart</h3>
-          <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
-        </div>
-        <div>
+        <div >
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <div className="cardCoteACote">
+            <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
+            <h3>My cart</h3>
+            <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
+          </div>
+          <div>
 
-          <table className="table table-striped">
-            <thead>
+            <table className="table table-striped">
+              <thead>
 
               <tr>
                 <th></th>
@@ -149,51 +149,51 @@ class Cart extends Component {
                 <th>Delete</th>
                 <th>Total price</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               {
-              this.state.productOfCart.map((cartItem, index) => {
-                return (
-                  <tr key={index}>
-                    <td><img src={`${urlImage}${cartItem.image_path}`} className="img-thumbnail" width="20%"/></td>
-                    <td>{cartItem.title}</td>
-                    <td>{cartItem.min_price} €</td>
-                    <td className="qty">
-                      <div className="signs">
-                        {/* <img src="https://www.decathlon.fr/skins/images/decat/p.gif"/> */}
-                        <button type="button" className="btn btn-secondary" onClick={this.increment}>+</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.decrement}>-</button>
-                      </div>
+                this.state.productOfCart.map((cartItem, index) => {
+                  return (
+                    <tr key={index}>
+                      <td><img src={`${urlImage}${cartItem.image_path}`} className="img-thumbnail" width="20%"/></td>
+                      <td>{cartItem.title}</td>
+                      <td>{cartItem.min_price} €</td>
+                      <td className="qty">
+                        <div className="signs">
+                          {/* <img src="https://www.decathlon.fr/skins/images/decat/p.gif"/> */}
+                          <button type="button" className="btn btn-secondary" onClick={this.increment}>+</button>
+                          <button type="button" className="btn btn-secondary" onClick={this.decrement}>-</button>
+                        </div>
                         <input type="text" className="qty2" value={cartItem.qty} onChange={(event) => this.updateQty(event.target.value,index)}>
                         </input>
-                    </td>
-                    <td>
-                      <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
-                    </td>
-                    <td>{cartItem.min_price*cartItem.qty} €</td>
-                    {this.total(cartItem.min_price*cartItem.qty)}
-                  </tr>
-                )
+                      </td>
+                      <td>
+                        <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
+                      </td>
+                      <td>{cartItem.min_price*cartItem.qty} €</td>
+                      {this.total(cartItem.min_price*cartItem.qty)}
+                    </tr>
+                  )
                 })
                 // <tr><th colSpan="2">{total} €</th></tr>
               }
 
 
-            </tbody>
-          </table>
-        </div>
-        <div className="total">
-          {total} €
-        </div>
-        <div className="cardCoteACote">
-          <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
-          <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
-        </div>
+              </tbody>
+            </table>
+          </div>
+          <div className="total">
+            {total} €
+          </div>
+          <div className="cardCoteACote">
+            <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
+            <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
+          </div>
 
 
-        <Footer/>
+          <Footer/>
+        </div>
       </div>
-
     )
   }
 }
