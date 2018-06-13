@@ -70,7 +70,7 @@ class Shipping extends Component{
   render(){
     return (
       <div className="ShippingForm">
-        <div class="row">
+        <div className="row">
           <div className="shipping_contents col-sm-3"></div>
           <div className="shipping_contents col-sm-6">
             <h1>Validate your shipping information</h1>
@@ -81,33 +81,33 @@ class Shipping extends Component{
                   placeholder="Your first name"
                   value={this.state.firstName}
                   onChange={this.onFirstnameInputChange.bind(this)}
-                  class="form_input input_name input_ph"
+                  className="form_input input_name input_ph"
                   required="required"
                   data-error="First Name is required."/>
                 <input type="text"
                   placeholder="Your last name"
                   value={this.state.lastName}
                   onChange={this.onLastnameInputChange.bind(this)}
-                  class="form_input input_name input_ph"
+                  className="form_input input_name input_ph"
                   required="required"
                   data-error="Last Name is required."/>
                 <input type="text"
                   placeholder="Your address"
                   value={this.state.address}
                   onChange={this.onAddressInputChange.bind(this)}
-                  class="form_input input_name input_ph"
+                  className="form_input input_name input_ph"
                   required="required"
                   data-error="Address is required."/>
                 <input type="text"
                   placeholder="Your post code"
                   value={this.state.postCode}
                   onChange={this.onPostcodeInputChange.bind(this)}
-                  class="form_input input_name input_ph" />
+                  className="form_input input_name input_ph" />
                 <input type="text"
                   placeholder="Your city"
                   value={this.state.city}
                   onChange={this.onCityInputChange.bind(this)}
-                  class="form_input input_name input_ph"
+                  className="form_input input_name input_ph"
                   required="required"
                   data-error="City is required."/>
               </div>

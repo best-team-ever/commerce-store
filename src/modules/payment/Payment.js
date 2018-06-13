@@ -5,11 +5,6 @@ import { withRouter } from "react-router-dom";
 
 import { createPayment } from "../../store/actions/cartAction";
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 import './payment.css';
 
 class Payment extends Component{
@@ -19,7 +14,7 @@ class Payment extends Component{
       cardType: "",
       cardNumber: "",
       expirationDate: "",
-      cvv: "",
+      cvc: "",
       cardHolderName: ""
     }
   }
@@ -42,9 +37,9 @@ class Payment extends Component{
     });
   }
 
-  onCvvInputChange(e){
+  onCvcInputChange(e){
     this.setState({
-      cvv: e.target.value
+      cvc: e.target.value
     });
   }
 
@@ -60,7 +55,7 @@ class Payment extends Component{
       cardType: this.state.cardType,
       cardNumber: this.state.cardNumber,
       expirationDate: this.state.expirationDate,
-      cvv: this.state.cvv,
+      cvc: this.state.cvc,
       cardHolderName: this.state.cardHolderName
     });
     this.props.history.push("/confirmation");
@@ -68,66 +63,84 @@ class Payment extends Component{
       cardType: "",
       cardNumber: "",
       expirationDate: "",
-      cvv: "",
+      cvc: "",
       cardHolderName: ""
     })
   }
 
   render(){
     return (
-      <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
-
-        <div>
-          <div className='title'>
-            <h1>Validate your payment information</h1>
-          </div>
-          <div className='shippingForm'>
-            <form className="form" onSubmit={this.onSubmit.bind(this)}>
-              <label>
-                <div>
-                  Card type:
-                  <input type="text" value={this.state.cardType} onChange={this.onCardtypeInputChange.bind(this)}/>
-                </div>
-                <div>
-                  Card number:
-                  <input type="text" value={this.state.cardNumber} onChange={this.onCardnumberInputChange.bind(this)}/>
-                </div>
-                <div>
-                  Expiration date:
-                  <input type="text" value={this.state.expirationDate} onChange={this.onExpirationdateInputChange.bind(this)}/>
-                </div>
-                <div>
-                  CVV:
-                  <input type="text" value={this.state.cvv} onChange={this.onCvvInputChange.bind(this)} />
-                </div>
-                <div>
-                  Card holder name:
-                  <input type="text" value={this.state.cardHolderName} onChange={this.onCardholdernameInputChange.bind(this)} />
-                </div>
-              </label>
+      <div className="Payment">
+        <div className="row">
+          <div className="col-sm-3"></div>
+          <div className="paiement_contents col-sm-6">
+            <h1>Validate your payment informations</h1>
+            <form onSubmit={this.onSubmit.bind(this)}>
               <div>
-                <button type="submit">Submit</button>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="cardNumber">Card number</span>
+                  </div>
+                  <input type="text"
+                    placeholder="1234 1234 1234 1234"
+                    className="form-control"
+                    value={this.state.cardNumber}
+                    onChange={this.onCardnumberInputChange.bind(this)}
+                    required="required"
+                    data-error="Card number is required."
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="expirationDate">Expiration date</span>
+                  </div>
+                  <input type="text"
+                    placeholder="MM/YY"
+                    value={this.state.expirationDate}
+                    className="form-control"
+                    onChange={this.onExpirationdateInputChange.bind(this)}
+                    required="required"
+                    data-error="Expiration date is required."
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="CVC">CVC</span>
+                  </div>
+                  <input type="text"
+                    placeholder="CVC"
+                    value={this.state.cvc}
+                    className="form-control"
+                    onChange={this.onCvcInputChange.bind(this)}
+                    required="required"
+                    data-error="CVC is required."
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="CVC">Card holder name</span>
+                  </div>
+                  <input type="text"
+                    placeholder="your Name"
+                    value={this.state.cardHolderName}
+                    className="form-control"
+                    onChange={this.onCardholdernameInputChange.bind(this)}
+                    required="required"
+                    data-error="Card holder name is required."
+                  />
+                </div>
+              </div>
+              <div>
+                <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>
               </div>
             </form>
           </div>
+          <div className="col-sm-3"></div>
         </div>
-
-
-
-        <Footer/>
       </div>
     )
   }
 }
-
 
 function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createPayment}, dispatch);
