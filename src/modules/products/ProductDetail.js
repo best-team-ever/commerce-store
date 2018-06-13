@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
 import { addToCart } from "../../store/actions/cartAction";
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './ProductDetail.css';
 
@@ -41,6 +41,7 @@ class ProductDetail extends Component{
       rating: product.rating,
       qty: 1
     });
+    this.props.history.push("/cart");
   }
 
   componentDidMount(){
@@ -134,4 +135,4 @@ function mapDispatchToProps  (dispatch) {
   return {...actions, dispatch};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductDetail));
