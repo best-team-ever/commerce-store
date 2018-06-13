@@ -1,0 +1,13 @@
+.title {
+  color: black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+ShippingForm {
+  flex-direction: column;
+}
