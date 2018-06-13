@@ -6,10 +6,6 @@ import { bindActionCreators } from "redux";
 import { deleteFromCart } from "../../store/actions/cartAction";
 
 import './cart.css';
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
 
 const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
@@ -98,15 +94,6 @@ class Cart extends Component {
 
     return (
       <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
-
         <div>
           <div>
             <table className="table table-striped">
@@ -142,9 +129,6 @@ class Cart extends Component {
             }
           </div>
         </div>
-
-
-        <Footer/>
       </div>
 
     )
