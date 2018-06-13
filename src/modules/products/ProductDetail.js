@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
@@ -113,9 +112,9 @@ class ProductDetail extends Component{
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
               <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                <Link to={`/cart/${product.id}`}>
+                <a onClick={this.handleClick}>
     						  <div className="red_button product_add_to_cart_button">add to cart</div>
-                </Link>
+                </a>
               </div>
     				</div>
     			</div>

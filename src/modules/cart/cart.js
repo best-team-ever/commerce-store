@@ -70,7 +70,7 @@ class Cart extends Component {
     if(productsOfCart){
       productsList = productsOfCart.map((product) => (
         <tr key={product.id}>
-          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
+          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="30%" alt={`${product.title}`}/></td>
           <td>{product.title}</td>
           <td>{product.description}</td>
           <td>{product.min_price}</td>
@@ -85,22 +85,38 @@ class Cart extends Component {
           <td>
             <i className="fas fa-trash-alt" onClick={this.deleteItem.bind(this, `${product.id}`)}></i>
           </td>
-          <td>{product.min_price*product.qty} €</td>
-          {this.total(product.min_price*product.qty)}
+          <td>
+            {Math.round(product.min_price*100 * product.qty)/100}&nbsp;€
+          </td>
         </tr>
       ));
+      const total = productsOfCart
+        .map(product => (Math.round(product.min_price*100 * product.qty)/100))
+        .reduce((total, value) => (total + value));
+      productsList.push(
+        <tr key={productsList.length}>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td className="qty"></td>
+          <td></td>
+          <td>{total}&nbsp;€</td>
+        </tr>
+      );
     }
 
 
     return (
-      <div className="App">
+      <div className="card_container">
         <div>
           <div>
             <table className="table table-striped">
               <thead>
                 <tr>
                   <th></th>
-                  <th>Product</th>
+                  <th>Product name</th>
+                  <th>Description</th>
                   <th>Unit price</th>
                   <th>Quantity</th>
                   <th>Delete</th>
@@ -111,9 +127,6 @@ class Cart extends Component {
                 {productsList}
               </tbody>
             </table>
-          </div>
-          <div className="total">
-            {total} €
           </div>
           <div className="cardCoteACote">
             <Link to="/">
@@ -138,7 +151,8 @@ class Cart extends Component {
 //
 // }
 
-{/* <span>
+/* <span>
+{
   <Cart
     return={this.return}
     validCart={this.validCart}
@@ -146,8 +160,7 @@ class Cart extends Component {
     decrement={this.decrement}
     deleteItem={this.deleteItem}
   />
-</span> */}
-
+</span> }*/
 
 const mapStateToProps = (state) => ({
   productsOfCart: state.cartReducer.productsOfCart
