@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
 
-import './css/font-awesome-4.7.0/css/font-awesome.min.css';
+import "./plugins/font-awesome-4.7.0/css/font-awesome.min.css";
+import "./plugins/jquery-ui-1.12.1.custom/jquery-ui.css";
 import './css/main_styles.css';
 import './css/responsive.css';
 import './index.css';
