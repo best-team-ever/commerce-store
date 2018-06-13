@@ -3,6 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
+import { addToCart } from "../../store/actions/cartAction";
+
+import TopNav from "../header/TopNav";
+import MainNav from '../header/MainNav';
+import HamburgerMenu from '../header/HamburgerMenu';
+import Footer from '../footer/Footer';
 
 import './ProductsList.css';
 
@@ -113,7 +119,7 @@ class ProductsList extends Component{
     }
 
     return(
-      <div className="App">
+      <div className="product-grid">
         <header className="header">
           <TopNav/>
           <MainNav/>
@@ -122,12 +128,8 @@ class ProductsList extends Component{
         <HamburgerMenu/>
         <div className="main_slider"/>
 
-        <div className="container">
-          <div className="product-grid">
-            <div className="row">
-              {list}
-            </div>
-          </div>
+        <div className="row">
+          {list}
         </div>
 
         <Footer/>
