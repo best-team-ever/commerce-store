@@ -1,17 +1,137 @@
-.App {
-  text-align: center;
+.paiement_contents
+{
+	padding-right: 30px;
+  justify-content: center;
 }
-
-.title {
-  color: black;
+.paiement_contents h1
+{
+	font-size: 30px;
+	font-weight: 500;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+.paiement_contents p
+{
+	font-size: 16px;
+	font-weight: 400;
+	margin-bottom: 0px;
 }
-
-ShippingForm {
-  flex-direction: column;
+.form_input
+{
+	display: block;
+	width: 100%;
+	height: 50px;
+	border: solid 1px #e5e5e5;
+	padding-left: 20px;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+.input_message
+{
+	width: 100%;
+	margin-bottom: 15px;
+	font-size: 16px;
+	padding-bottom: 15px;
+}
+.form_input:focus,
+#newsletter_email:focus
+{
+	border: solid 1px #7f7f7f !important;
+	box-shadow: none !important;
+}
+.message_submit_btn
+{
+	background: #1e1e27;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	width: 165px;
+	border: none;
+	height: 46px;
+	cursor: pointer;
+}
+.message_submit_btn:hover
+{
+	background: #2b2b34 !important;
+}
+:focus
+{
+	outline: none !important;
+}
+.input_ph::-webkit-input-placeholder
+{
+	font-size: 16px !important;
+	font-weight: 400;
+	color: #b9b4c7 !important;
+}
+.input_ph:-moz-placeholder /* older Firefox*/
+{
+	font-size: 16px !important;
+	font-weight: 400;
+	color: #b9b4c7 !important;
+}
+.input_ph::-moz-placeholder /* Firefox 19+ */
+{
+	font-size: 16px !important;
+	font-weight: 400;
+	color: #b9b4c7 !important;
+}
+.input_ph:-ms-input-placeholder
+{
+	font-size: 16px !important;
+	font-weight: 400;
+	color: #b9b4c7 !important;
+}
+.input_ph::input-placeholder
+{
+	font-size: 16px !important;
+	font-weight: 400;
+	color: #b9b4c7 !important;
+}
+textarea
+{
+	border: solid 1px #e5e5e5;
+	padding-left: 20px;
+	padding-top: 15px;
+}
+textarea:hover
+{
+	border-color: #7f7f7f !important;
+}
+.input_name
+{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.input_review
+{
+	display: block;
+	width: 100%;
+	border: solid 1px #e5e5e5;
+	margin-top: 23px;
+	padding-left: 20px;
+	padding-top: 13px;
+}
+.user_star_rating
+{
+	display: inline-block;
+	margin-left: 18px;
+}
+.user_star_rating li
+{
+	display: inline-block;
+	margin-right: -3px;
+	cursor: pointer;
+}
+.user_star_rating li i
+{
+	color: #f5c136;
+	font-size: 18px;
+}
+.review_submit_btn
+{
+	width: 170px;
+	border: none;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
 }
