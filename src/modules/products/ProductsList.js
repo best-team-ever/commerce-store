@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
 import { addToCart } from "../../store/actions/cartAction";
@@ -57,6 +57,8 @@ class ProductsList extends Component{
       rating: product.rating,
       qty: 1
     });
+    this.props.history.push("/cart");
+
   }
 
   componentDidMount(){
@@ -111,7 +113,7 @@ class ProductsList extends Component{
               </Link>
             </div>
             <div className="red_button add_to_cart_button">
-              <a href={`/cart/${product.id}`}>add to cart</a>
+              <a onClick={this.handleClick.bind(this, `${product.id}`)}>add to cart</a>
             </div>
           </div>
         )
@@ -150,4 +152,4 @@ function mapDispatchToProps (dispatch) {
   return {...actions, dispatch};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductsList));
