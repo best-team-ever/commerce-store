@@ -1,4 +1,4 @@
-import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART, UPDATE_QTY} from "./ActionTypes";
+import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART, ADD_REPEAT_PRODUCT, UPDATE_QTY} from "./ActionTypes";
 
 export const addToCart = (productsOfCart) => ({
   type: ADD_TO_CART,
@@ -9,6 +9,11 @@ export const deleteFromCartAction = (id) => ({
   type: DELETE_FROM_CART,
   payload: { id }
 });
+
+export const addRepeatProduct = (id) => ({
+  type: ADD_REPEAT_PRODUCT,
+  payload: { id }
+})
 
 export const createShipping = (shipping) => ({
   type: CREATE_SHIPPING,
