@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
 import { addToCart } from "../../store/actions/cartAction";
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import TopNav from "../header/TopNav";
 import MainNav from '../header/MainNav';
@@ -46,6 +46,7 @@ class ProductDetail extends Component{
       rating: product.rating,
       qty: 1
     });
+    this.props.history.push("/cart");
   }
 
   componentDidMount(){
@@ -129,7 +130,7 @@ class ProductDetail extends Component{
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
               <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-    						<div className="red_button product_add_to_cart_button"><a href={`/cart/${product.id}`}>add to cart</a></div>
+    						<div className="red_button product_add_to_cart_button"><a onClick={this.handleClick}>add to cart</a></div>
               </div>
     				</div>
     			</div>
@@ -152,4 +153,4 @@ function mapDispatchToProps  (dispatch) {
   return {...actions, dispatch};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductDetail));
