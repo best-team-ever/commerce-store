@@ -5,11 +5,6 @@ import { fetchProductDetail } from "../../store/actions/productDetailAction";
 import { addToCart } from "../../store/actions/cartAction";
 import { withRouter } from 'react-router-dom';
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 import './ProductDetail.css';
 
 const urlImage = "https://www.decathlon.fr/media/";
@@ -71,11 +66,6 @@ class ProductDetail extends Component{
     for(let i = 0; i < 5; i++) {
       result.push(<li key={i}><i className={(i < Math.round(value)) ? "fa fa-star" : "fa fa-star-o"} aria-hidden="true"></i></li>)
     }
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star-o" aria-hidden="true"></i></li>
     return result;
   }
 
@@ -83,14 +73,6 @@ class ProductDetail extends Component{
     let product = this.getProductDetail().product;
     return(
       <div className="container single_product_container">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
     		<div className="row">
     			<div className="col">
     				<div className="breadcrumbs d-flex flex-row align-items-center">
@@ -130,13 +112,13 @@ class ProductDetail extends Component{
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
               <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-    						<div className="red_button product_add_to_cart_button"><a onClick={this.handleClick}>add to cart</a></div>
+                <Link to={`/cart/${product.id}`}>
+    						  <div className="red_button product_add_to_cart_button">add to cart</div>
+                </Link>
               </div>
     				</div>
     			</div>
     		</div>
-
-        <Footer/>
     	</div>
     );
   }

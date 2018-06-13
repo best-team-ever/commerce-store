@@ -4,11 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './Banner.css';
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 class CategoriesList extends Component{
   getCategories(){
     let { error, loading, categories } = this.props;
@@ -40,14 +35,6 @@ class CategoriesList extends Component{
 
     return (
       <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
         <div className="banner">
           <div className="container">
             <div className="row">
@@ -55,8 +42,6 @@ class CategoriesList extends Component{
             </div>
           </div>
         </div>
-
-        <Footer/>
       </div>
     )
   }

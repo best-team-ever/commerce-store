@@ -5,11 +5,6 @@ import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
 import { addToCart } from "../../store/actions/cartAction";
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 import './ProductsList.css';
 
 const urlImage = "https://www.decathlon.fr/media/";
@@ -122,19 +117,9 @@ class ProductsList extends Component{
 
     return(
       <div className="product-grid">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
         <div className="row">
           {list}
         </div>
-
-        <Footer/>
       </div>
     )
   }

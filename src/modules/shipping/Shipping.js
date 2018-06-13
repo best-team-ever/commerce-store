@@ -4,11 +4,6 @@ import { bindActionCreators } from "redux";
 import { createShipping } from "../../store/actions/cartAction";
 import { withRouter } from "react-router-dom";
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 import './shipping.css';
 
 class Shipping extends Component{
@@ -74,22 +69,12 @@ class Shipping extends Component{
 
   render(){
     return (
-      <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
-
+      <div className="Shipping">
         <div>
           <div className='title'>
             <h1>Validate your shipping information</h1>
           </div>
           <div className='shippingForm'>
-            {/*<Form to="/payment" method="POST">*/}
             <form className="form" onSubmit={this.onSubmit.bind(this)}>
               <label>
                 <div>
@@ -117,13 +102,8 @@ class Shipping extends Component{
                 <button type="submit">Submit</button>
               </div>
             </form>
-            {/*</Form>*/}
           </div>
         </div>
-
-
-
-        <Footer/>
       </div>
     )
   }
@@ -133,6 +113,5 @@ function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createShipping}, dispatch);
   return {...actions, dispatch};
 }
-
 
 export default withRouter(connect(null, mapDispatchToProps)(Shipping));
