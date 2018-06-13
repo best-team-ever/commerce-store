@@ -4,11 +4,12 @@ import {
   CREATE_PAYMENT,
   CREATE_SHIPPING,
   DELETE_FROM_CART,
-  ADD_REPEAT_PRODUCT
+  ADD_REPEAT_PRODUCT,
+  UPDATE_QTY
 } from "../actions/ActionTypes";
 
 const initialState = {
-  productsOfCart: ""
+  productsOfCart: []
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +20,7 @@ export default (state = initialState, action) => {
         productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     case DELETE_FROM_CART:
+      console.log("reducer");
       return {
         ...state,
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
@@ -43,6 +45,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         order: [...state.order, action.payload.order]
+      }
+    case UPDATE_QTY:
+      const newArray = state.productsOfCart.map((value, indexMap) => {
+        if (action.payload.index === indexMap) {
+          return {...value, qty: action.payload.qty}
+        } else {
+          return value;
+        }
+      })
+      console.log("newArray : ", newArray);
+      return {
+        ...state, productsOfCart : newArray
       }
     default:
       return state;

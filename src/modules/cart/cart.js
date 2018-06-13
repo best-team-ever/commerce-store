@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
+// import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
+import { deleteFromCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
-import { deleteFromCart } from "../../store/actions/cartAction";
 
 import './cart.css';
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
 
 const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
@@ -45,18 +42,14 @@ class Cart extends Component {
   };
 
   deleteItem = (productId) => {
+    console.log("deleteItem");
+    // console.log("thisprops",this.props);
     this.props.deleteFromCart(productId)
   };
 
-  updateQty = (event, index) => {
-    const newArray = this.state.productOfCart.map((value, indexMap) => {
-      if (index === indexMap) {
-        return {...value, qty: event}
-      } else {
-        return value;
-      }
-    })
-    this.setState({productOfCart: newArray});
+  updateQty2 = (event, index) => {
+    console.log("updateQty2");
+    this.props.updateQty(event, index);
   }
 
   total = (value) => {
@@ -88,7 +81,7 @@ class Cart extends Component {
               <button onClick={this.increment}>+</button>
               <button onClick={this.decrement}>-</button>
             </div>
-            <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty(event.target.value, product.id)}>
+            <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>
           </td>
           <td>
@@ -103,15 +96,6 @@ class Cart extends Component {
 
     return (
       <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
-
         <div>
           <div>
             <table className="table table-striped">
@@ -119,6 +103,7 @@ class Cart extends Component {
                 <tr>
                   <th></th>
                   <th>Product</th>
+                  {/* <th>Description</th> */}
                   <th>Unit price</th>
                   <th>Quantity</th>
                   <th>Delete</th>
@@ -147,37 +132,28 @@ class Cart extends Component {
             }
           </div>
         </div>
-
-
-        <Footer/>
       </div>
 
     )
   }
 }
-// function Cart(props) {
-//
-// }
 
-{/* <span>
-  <Cart
-    return={this.return}
-    validCart={this.validCart}
-    increment={this.increment}
-    decrement={this.decrement}
-    deleteItem={this.deleteItem}
-  />
-</span> */}
 
 
 const mapStateToProps = (state) => ({
   productsOfCart: state.cartReducer.productsOfCart
 })
 
-const mapDispatchToProps = (dispatch) => (
-  bindActionCreators({ deleteFromCart }, dispatch)
-);
+// const mapDispatchToProps = (dispatch) => {
+//   bindActionCreators({ deleteFromCart, updateQty }, dispatch)
+// };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteFromCart: (id) => deleteFromCartHandler(id, dispatch),
+    updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch)
+  };
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
 

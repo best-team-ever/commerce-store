@@ -24,20 +24,17 @@ class MainNav extends Component {
   						</div>
   						<nav className="navbar">
   							<ul className="navbar_menu">
-  								<li><a href="/">home</a></li>
-  								{/* <li><a href="/">categories</a></li> */}
-  								<li><a href="./contact">contact</a></li>
+  								<li><Link to="/">home</Link></li>
+  								<li><Link to="./contact">contact</Link></li>
   							</ul>
   							<ul className="navbar_user">
-  								<li><a href="./"><i className="fa fa-search" aria-hidden="true"></i></a></li>
-  								<li><a href="./"><i className="fa fa-user" aria-hidden="true"></i></a></li>
+  								<li><Link to="/"><i className="fa fa-search" aria-hidden="true"></i></Link></li>
+  								<li><Link to="/"><i className="fa fa-user" aria-hidden="true"></i></Link></li>
   								<li className="checkout">
-  									<a href="./">
-											<Link to="/cart">
-												<i className="fa fa-shopping-cart" aria-hidden="true"></i>
-												<span id="checkout_items" className="checkout_items">{numberProductsOfCart}</span>
-											</Link>
-  									</a>
+										<Link to="/cart">
+											<i className="fa fa-shopping-cart" aria-hidden="true"></i>
+											<span id="checkout_items" className="checkout_items">{numberProductsOfCart}</span>
+										</Link>
   								</li>
   							</ul>
   							<div className="hamburger_container">
