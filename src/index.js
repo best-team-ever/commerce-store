@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './css/font-awesome-4.7.0/css/font-awesome.min.css';
+import './css/main_styles.css';
+import './css/responsive.css';
 import './index.css';
+
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from "react-redux";

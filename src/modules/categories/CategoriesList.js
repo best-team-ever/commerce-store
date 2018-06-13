@@ -9,7 +9,6 @@ import MainNav from '../header/MainNav';
 import HamburgerMenu from '../header/HamburgerMenu';
 import Footer from '../footer/Footer';
 
-
 class CategoriesList extends Component{
   getCategories(){
     let { error, loading, categories } = this.props;
