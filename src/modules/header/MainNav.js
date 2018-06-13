@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
 import './MainNav.css';
 
-export default class MainNav extends Component {
+class MainNav extends Component {
+  getProductOfCart(){
+    let { productsOfCart } = this.props;
+    console.log("addToCart: ", this.props.productsOfCart);
+    return {
+      productsOfCart: productsOfCart
+    }
+  }
+
   render() {
+    let numberProductsOfCart = this.getProductOfCart().productsOfCart.length? this.getProductOfCart().productsOfCart.length : 0;
+
     return (
       <div className="main_nav_container">
   			<div className="container">
@@ -23,8 +34,10 @@ export default class MainNav extends Component {
   								<li><a href="./"><i className="fa fa-user" aria-hidden="true"></i></a></li>
   								<li className="checkout">
   									<a href="./">
-  										<i className="fa fa-shopping-cart" aria-hidden="true"></i>
-  										<span id="checkout_items" className="checkout_items">2</span>
+											<Link to="/cart">
+												<i className="fa fa-shopping-cart" aria-hidden="true"></i>
+												<span id="checkout_items" className="checkout_items">{numberProductsOfCart}</span>
+											</Link>
   									</a>
   								</li>
   							</ul>
@@ -39,3 +52,8 @@ export default class MainNav extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  productsOfCart: state.cartReducer.productsOfCart
+})
+export default connect(mapStateToProps)(MainNav);

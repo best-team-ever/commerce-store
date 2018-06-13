@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { getCounter } from "../../store/counter/selectors";
-// import { incrementDecrement } from "../../store/counter/handlers";
+import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+
+import { deleteFromCart } from "../../store/actions/cartAction";
+
 import './cart.css';
 import TopNav from "../header/TopNav";
 import MainNav from '../header/MainNav';
 import HamburgerMenu from '../header/HamburgerMenu';
 import Footer from '../footer/Footer';
-
 
 const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
@@ -15,32 +17,12 @@ let total = 0;
 class Cart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      toto: "",
-      productOfCart: [
-        {
-        "decathlon_id": 8354464,
-        "title": "Basic L print Long Gold Fusion",
-        "min_price": 9.99,
-        "image_path": "835/8354464/zoom_726db88653a94070ab9e6eef0bd48218.jpg",
-        "qty": 0,
-        },
-        {
-        "decathlon_id": 8339112,
-        "title": "GILET TAIGA 300 VERT",
-        "min_price": 34.99,
-        "image_path": "833/8339112/zoom_b3c967f1315d4f6a9fbbf74c38cf3593.jpg",
-        "qty": 3,
-        }
-      ],
-    };
     this.return = this.return.bind (this);
     this.validCart = this.validCart.bind (this);
   }
 
-  getProductOfCart(){
+  getProductsOfCart(){
     let { productsOfCart } = this.props;
-    console.log("addToCart: ", this.props.productsOfCart);
     return {
       productsOfCart: productsOfCart
     }
@@ -62,8 +44,8 @@ class Cart extends Component {
     console.log("moins -");
   };
 
-  deleteItem = () => {
-    console.log("deleteItem");
+  deleteItem = (productId) => {
+    this.props.deleteFromCart(productId)
   };
 
   updateQty = (event, index) => {
@@ -85,13 +67,14 @@ class Cart extends Component {
     console.log("didMount");
   }
 
-
   render(){
-    let productsOfCart = this.getProductOfCart().productsOfCart;
+    let productsOfCart = this.getProductsOfCart().productsOfCart;
+    let numberProducts = this.getProductsOfCart().productsOfCart.length;
     let productsList = [];
     if(productsOfCart){
       productsList = productsOfCart.map((product) => (
         <tr key={product.id}>
+          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
           <td>{product.title}</td>
           <td>{product.description}</td>
           <td>{product.min_price}</td>
@@ -100,13 +83,14 @@ class Cart extends Component {
               <button onClick={this.increment}>+</button>
               <button onClick={this.decrement}>-</button>
             </div>
-            <input type="text" value="2" onChange={console.log("on Change2")}>
+            <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty(event.target.value, product.id)}>
             </input>
           </td>
           <td>
-            <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
+            <i className="fas fa-trash-alt" onClick={this.deleteItem.bind(this, `${product.id}`)}></i>
           </td>
-          <td>20,00 €</td>
+          <td>{product.min_price*product.qty} €</td>
+          {this.total(product.min_price*product.qty)}
         </tr>
       ));
     }
@@ -123,62 +107,21 @@ class Cart extends Component {
         <div className="main_slider"/>
 
 
-        <div >
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <div className="cardCoteACote">
-            <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
-            <h3>My cart</h3>
-            <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
-          </div>
+        <div>
           <div>
-
             <table className="table table-striped">
               <thead>
-
-              <tr>
-                <th></th>
-                <th>Product</th>
-                <th>Unit price</th>
-                <th>Quantity</th>
-                <th>Delete</th>
-                <th>Total price</th>
-              </tr>
+                <tr>
+                  <th></th>
+                  <th>Product</th>
+                  <th>Unit price</th>
+                  <th>Quantity</th>
+                  <th>Delete</th>
+                  <th>Total price</th>
+                </tr>
               </thead>
               <tbody>
-              {
-                this.state.productOfCart.map((cartItem, index) => {
-                  return (
-                    <tr key={index}>
-                      <td><img src={`${urlImage}${cartItem.image_path}`} className="img-thumbnail" width="20%"/></td>
-                      <td>{cartItem.title}</td>
-                      <td>{cartItem.min_price} €</td>
-                      <td className="qty">
-                        <div className="signs">
-                          {/* <img src="https://www.decathlon.fr/skins/images/decat/p.gif"/> */}
-                          <button type="button" className="btn btn-secondary" onClick={this.increment}>+</button>
-                          <button type="button" className="btn btn-secondary" onClick={this.decrement}>-</button>
-                        </div>
-                        <input type="text" className="qty2" value={cartItem.qty} onChange={(event) => this.updateQty(event.target.value,index)}>
-                        </input>
-                      </td>
-                      <td>
-                        <i className="fas fa-trash-alt" onClick={this.deleteItem}></i>
-                      </td>
-                      <td>{cartItem.min_price*cartItem.qty} €</td>
-                      {this.total(cartItem.min_price*cartItem.qty)}
-                    </tr>
-                  )
-                })
-                // <tr><th colSpan="2">{total} €</th></tr>
-              }
-
-
+                {productsList}
               </tbody>
             </table>
           </div>
@@ -186,23 +129,51 @@ class Cart extends Component {
             {total} €
           </div>
           <div className="cardCoteACote">
-            <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
-            <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
+            <Link to="/">
+              <button type="button" className="btn btn-primary">Return</button>
+            </Link>
+            {
+              numberProducts?
+                (
+                  <Link to="/shipping">
+                    <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
+                  </Link>
+                ):null
+            }
           </div>
-
-
-          <Footer/>
         </div>
+
+
+        <Footer/>
       </div>
+
     )
   }
 }
+// function Cart(props) {
+//
+// }
+
+{/* <span>
+  <Cart
+    return={this.return}
+    validCart={this.validCart}
+    increment={this.increment}
+    decrement={this.decrement}
+    deleteItem={this.deleteItem}
+  />
+</span> */}
 
 
+const mapStateToProps = (state) => ({
+  productsOfCart: state.cartReducer.productsOfCart
+})
 
-const mapStateToProps = (state) => (
-  {productsOfCart: state.cartReducer.productsOfCart}
-)
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => (
+  bindActionCreators({ deleteFromCart }, dispatch)
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 
 // export default (Cart);
