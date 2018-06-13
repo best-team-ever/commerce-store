@@ -13,7 +13,7 @@ export default class TopNav extends Component {
             <div className="col-md-6 text-right">
               <div className="top_nav_right">
                 <ul className="top_nav_menu">
-                  <li className="currency">
+                  {/* <li className="currency">
                     <a href="./">
                       usd
                       <i className="fa fa-angle-down"></i>
@@ -24,8 +24,8 @@ export default class TopNav extends Component {
                       <li><a href="./">eur</a></li>
                       <li><a href="./">gbp</a></li>
                     </ul>
-                  </li>
-                  <li className="language">
+                  </li> */}
+                  {/* <li className="language">
                     <a href="./">
                       English
                       <i className="fa fa-angle-down"></i>
@@ -36,7 +36,7 @@ export default class TopNav extends Component {
                       <li><a href="./">German</a></li>
                       <li><a href="./">Spanish</a></li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li className="account">
                     <a href="./">
                       My Account

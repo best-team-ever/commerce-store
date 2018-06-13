@@ -13,8 +13,8 @@ export default class MainNav extends Component {
   						</div>
   						<nav className="navbar">
   							<ul className="navbar_menu">
-  								<li><a href="./">home</a></li>
-  								<li><a href="./">shop</a></li>
+  								<li><a href="/">home</a></li>
+  								{/* <li><a href="/">categories</a></li> */}
   								<li><a href="./contact">contact</a></li>
   							</ul>
   							<ul className="navbar_user">

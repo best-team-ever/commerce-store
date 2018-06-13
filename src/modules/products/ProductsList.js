@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../../store/actions/productsAction";
-import { Link } from "react-router-dom";
-
 
 import './ProductsList.css';
 
@@ -57,19 +55,23 @@ class ProductsList extends Component{
         return (
           <div key={product.id} className="product-item col-sm-3">
             <div className="product discount product_filter">
-              <div className="product_image">
-                <img src={`${urlImage}${product.image_path}`} alt={product.title} />
-              </div>
-              <div className="favorite favorite_left"></div>
-              {productBubble}
-              <div className="product_info">
-                <h6 className="product_name">
-                  <Link to={`/products/${product.id}`}>{product.title}</Link>
-                </h6>
-                <div className="product_price">${product.min_price} €{crossedPrice}</div>
-              </div>
+              <Link to={`/products/${product.id}`}>
+                <div className="product_image">
+                  <img src={`${urlImage}${product.image_path}`} alt={product.title} />
+                </div>
+                <div className="favorite favorite_left"></div>
+                {productBubble}
+                <div className="product_info">
+                  <h6 className="product_name">
+                    {product.title}
+                  </h6>
+                  <div className="product_price">${product.min_price} €{crossedPrice}</div>
+                </div>
+              </Link>
             </div>
-            <div className="red_button add_to_cart_button"><a href={`/addCart/${product.id}`}>add to cart</a></div>
+            <div className="red_button add_to_cart_button">
+              <a href={`/cart/${product.id}`}>add to cart</a>
+            </div>
           </div>
         )
       });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchCategories, fetchCategoryProducts } from "../../store/actions/categoriesAction";
+import { fetchCategories } from "../../store/actions/categoriesAction";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './Banner.css';
