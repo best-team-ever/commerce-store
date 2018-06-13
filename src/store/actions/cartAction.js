@@ -1,11 +1,11 @@
-import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART} from "./ActionTypes";
+import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART, UPDATE_QTY} from "./ActionTypes";
 
 export const addToCart = (productsOfCart) => ({
   type: ADD_TO_CART,
   payload: { productsOfCart }
 });
 
-export const deleteFromCart = (id) => ({
+export const deleteFromCartAction = (id) => ({
   type: DELETE_FROM_CART,
   payload: { id }
 });
@@ -24,3 +24,8 @@ export const createOrder = (order) => ({
   type: CREATE_ORDER,
   payload: { order }
 });
+
+export const updateQtyAction = (qty, index) => ({
+  type: UPDATE_QTY,
+  payload: { qty, index }
+})
