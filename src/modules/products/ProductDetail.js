@@ -40,7 +40,8 @@ class ProductDetail extends Component{
       crossed_price: product.crossed_price,
       percent_reduction: product.percent_reduction,
       image_path: product.image_path,
-      rating: product.rating
+      rating: product.rating,
+      qty: 1
     });
   }
 
@@ -98,7 +99,6 @@ const mapStateToProps = state => ({
   product: state.product.items,
   loading: state.product.loading,
   error: state.product.error,
-  // productsOfCart: state.
 })
 
 function mapDispatchToProps  (dispatch) {

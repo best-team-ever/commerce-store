@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
-
+import { addToCart } from "../../store/actions/cartAction";
 
 import TopNav from '../header/TopNav';
 import MainNav from '../header/MainNav';
@@ -15,6 +16,11 @@ const urlImage = "https://www.decathlon.fr/media/";
 
 class ProductsList extends Component{
 
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   getProducts(){
     let { error, loading, products } = this.props;
     return {
@@ -22,6 +28,35 @@ class ProductsList extends Component{
       error: error,
       loading: loading
     }
+  }
+
+  getOneDetail(productId){
+    const productList = this.getProducts().products;
+    let product = "";
+    productList.forEach((p) => {
+      if (p.id === productId){
+        product = p;
+      }
+    })
+    return product;
+  }
+
+  handleClick (productId){
+    let product = this.getOneDetail(productId);
+    this.props.addToCart({
+      id: product.id,
+      decathlon_id: product.decathlon_id,
+      title: product.title,
+      description: product.description,
+      brand_id: product.brand_id,
+      min_price: product.min_price,
+      max_price: product.max_price,
+      crossed_price: product.crossed_price,
+      percent_reduction: product.percent_reduction,
+      image_path: product.image_path,
+      rating: product.rating,
+      qty: 1
+    });
   }
 
   componentDidMount(){
@@ -73,7 +108,14 @@ class ProductsList extends Component{
                 <div className="product_price">${product.min_price} €{crossedPrice}</div>
               </div>
             </div>
-            <div className="red_button add_to_cart_button"><a href={`/addCart/${product.id}`}>add to cart</a></div>
+            <div className="red_button add_to_cart_button">
+              <a onClick={this.handleClick.bind(this, `${product.id}`)}>
+              {/*<a>*/}
+                <Link to="/cart">
+                  add to cart
+                </Link>
+              </a>
+            </div>
           </div>
         )
       });
@@ -110,4 +152,9 @@ const mapStateToProps = state => ({
   error: state.products.error
 });
 
-export default connect(mapStateToProps)(ProductsList);
+function mapDispatchToProps (dispatch) {
+  let actions = bindActionCreators({addToCart}, dispatch);
+  return {...actions, dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
