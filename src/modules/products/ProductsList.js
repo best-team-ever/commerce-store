@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
 
 import './ProductsList.css';
@@ -9,6 +10,11 @@ const urlImage = "https://www.decathlon.fr/media/";
 
 class ProductsList extends Component{
 
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   getProducts(){
     let { error, loading, products } = this.props;
     return {
@@ -16,6 +22,35 @@ class ProductsList extends Component{
       error: error,
       loading: loading
     }
+  }
+
+  getOneDetail(productId){
+    const productList = this.getProducts().products;
+    let product = "";
+    productList.forEach((p) => {
+      if (p.id === productId){
+        product = p;
+      }
+    })
+    return product;
+  }
+
+  handleClick (productId){
+    let product = this.getOneDetail(productId);
+    this.props.addToCart({
+      id: product.id,
+      decathlon_id: product.decathlon_id,
+      title: product.title,
+      description: product.description,
+      brand_id: product.brand_id,
+      min_price: product.min_price,
+      max_price: product.max_price,
+      crossed_price: product.crossed_price,
+      percent_reduction: product.percent_reduction,
+      image_path: product.image_path,
+      rating: product.rating,
+      qty: 1
+    });
   }
 
   componentDidMount(){
@@ -78,12 +113,24 @@ class ProductsList extends Component{
     }
 
     return(
-      <div className="container">
-        <div className="product-grid">
-          <div className="row">
-            {list}
+      <div className="App">
+        <header className="header">
+          <TopNav/>
+          <MainNav/>
+        </header>
+        <div className="fs_menu_overlay"></div>
+        <HamburgerMenu/>
+        <div className="main_slider"/>
+
+        <div className="container">
+          <div className="product-grid">
+            <div className="row">
+              {list}
+            </div>
           </div>
         </div>
+
+        <Footer/>
       </div>
     )
   }
@@ -96,4 +143,9 @@ const mapStateToProps = state => ({
   error: state.products.error
 });
 
-export default connect(mapStateToProps)(ProductsList);
+function mapDispatchToProps (dispatch) {
+  let actions = bindActionCreators({addToCart}, dispatch);
+  return {...actions, dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

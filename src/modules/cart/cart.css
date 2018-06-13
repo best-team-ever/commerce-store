@@ -1,6 +1,14 @@
 .cardCoteACote {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  width : 95%;
+  margin : 0 auto;
+  margin-bottom: 155;
+}
+
+.title {
+  font-size: 150;
 }
 
 .total {
@@ -13,12 +21,13 @@
   flex-direction: column;
 }
 
-.sign {
-  margin: 0;
-  padding: 0;
+.qty2 {
+  text-align: right;
+  padding: 15px;
 }
 
 .qty {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
