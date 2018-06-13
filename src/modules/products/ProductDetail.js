@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
-import { addToCart } from "../../store/actions/cartAction";
+import { addToCart, addRepeatProduct } from "../../store/actions/cartAction";
 import { withRouter } from 'react-router-dom';
 
 import TopNav from "../header/TopNav";
@@ -21,6 +21,13 @@ class ProductDetail extends Component{
     this.handleClick = this.handleClick.bind(this);
   }
 
+  getProductsOfCart(){
+    let { productsOfCart } = this.props;
+    return {
+      productsOfCart: productsOfCart
+    }
+  }
+
   getProductDetail(){
     let { error, loading, product } = this.props;
     return {
@@ -32,20 +39,47 @@ class ProductDetail extends Component{
 
   handleClick = () => {
     let product = this.getProductDetail().product;
-    this.props.addToCart({
-      id: product.id,
-      decathlon_id: product.decathlon_id,
-      title: product.title,
-      description: product.description,
-      brand_id: product.brand_id,
-      min_price: product.min_price,
-      max_price: product.max_price,
-      crossed_price: product.crossed_price,
-      percent_reduction: product.percent_reduction,
-      image_path: product.image_path,
-      rating: product.rating,
-      qty: 1
-    });
+    let productsOfCart = this.getProductsOfCart().productsOfCart;
+
+    if(productsOfCart !== undefined && productsOfCart.length !== 0){
+      productsOfCart.forEach((p) => {
+        if (p.id !== product.id){
+
+          this.props.addToCart({
+            id: product.id,
+            decathlon_id: product.decathlon_id,
+            title: product.title,
+            description: product.description,
+            brand_id: product.brand_id,
+            min_price: product.min_price,
+            max_price: product.max_price,
+            crossed_price: product.crossed_price,
+            percent_reduction: product.percent_reduction,
+            image_path: product.image_path,
+            rating: product.rating,
+            qty: 1
+          });
+        } else {
+          this.props.addRepeatProduct(product.id)
+        }
+      })
+    } else {
+      this.props.addToCart({
+        id: product.id,
+        decathlon_id: product.decathlon_id,
+        title: product.title,
+        description: product.description,
+        brand_id: product.brand_id,
+        min_price: product.min_price,
+        max_price: product.max_price,
+        crossed_price: product.crossed_price,
+        percent_reduction: product.percent_reduction,
+        image_path: product.image_path,
+        rating: product.rating,
+        qty: 1
+      });
+    }
+
     this.props.history.push("/cart");
   }
 
@@ -146,10 +180,11 @@ const mapStateToProps = state => ({
   product: state.product.items,
   loading: state.product.loading,
   error: state.product.error,
+  productsOfCart: state.cartReducer.productsOfCart
 })
 
 function mapDispatchToProps  (dispatch) {
-  let actions = bindActionCreators({addToCart}, dispatch);
+  let actions = bindActionCreators({ addToCart, addRepeatProduct }, dispatch);
   return {...actions, dispatch};
 }
 

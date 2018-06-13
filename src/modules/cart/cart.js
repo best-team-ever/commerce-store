@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
 import { deleteFromCart } from "../../store/actions/cartAction";
@@ -67,15 +67,20 @@ class Cart extends Component {
     console.log("didMount");
   }
 
+  handleProduct(productId){
+    this.props.history.push(`/products/${productId}`);
+  }
+
   render(){
     let productsOfCart = this.getProductsOfCart().productsOfCart;
-    let numberProducts = this.getProductsOfCart().productsOfCart.length;
+    let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
+
     let productsList = [];
     if(productsOfCart){
-      productsList = productsOfCart.map((product) => (
-        <tr key={product.id}>
+      productsList = productsOfCart.map((product, index) => (
+        <tr key={index}>
           <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
-          <td>{product.title}</td>
+          <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>
           <td>{product.description}</td>
           <td>{product.min_price}</td>
           <td className="qty">
@@ -174,6 +179,6 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
 
 // export default (Cart);

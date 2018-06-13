@@ -6,7 +6,6 @@ import './MainNav.css';
 class MainNav extends Component {
   getProductOfCart(){
     let { productsOfCart } = this.props;
-    console.log("addToCart: ", this.props.productsOfCart);
     return {
       productsOfCart: productsOfCart
     }
