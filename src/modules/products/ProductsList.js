@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { fetchProducts } from "../../store/actions/productsAction";
-import { addToCart } from "../../store/actions/cartAction";
-
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
+import { addToCart, addRepeatProduct } from "../../store/actions/cartAction";
 
 import './ProductsList.css';
 
@@ -30,6 +25,13 @@ class ProductsList extends Component{
     }
   }
 
+  getProductsOfCart(){
+    let { productsOfCart } = this.props;
+    return {
+      productsOfCart: productsOfCart
+    }
+  }
+
   getOneDetail(productId){
     const productList = this.getProducts().products;
     let product = "";
@@ -43,20 +45,49 @@ class ProductsList extends Component{
 
   handleClick (productId){
     let product = this.getOneDetail(productId);
-    this.props.addToCart({
-      id: product.id,
-      decathlon_id: product.decathlon_id,
-      title: product.title,
-      description: product.description,
-      brand_id: product.brand_id,
-      min_price: product.min_price,
-      max_price: product.max_price,
-      crossed_price: product.crossed_price,
-      percent_reduction: product.percent_reduction,
-      image_path: product.image_path,
-      rating: product.rating,
-      qty: 1
-    });
+    let productsOfCart = this.getProductsOfCart().productsOfCart;
+
+    if(productsOfCart !== undefined && productsOfCart.length !== 0){
+      productsOfCart.forEach((p) => {
+        if (p.id !== product.id){
+
+          this.props.addToCart({
+            id: product.id,
+            decathlon_id: product.decathlon_id,
+            title: product.title,
+            description: product.description,
+            brand_id: product.brand_id,
+            min_price: product.min_price,
+            max_price: product.max_price,
+            crossed_price: product.crossed_price,
+            percent_reduction: product.percent_reduction,
+            image_path: product.image_path,
+            rating: product.rating,
+            qty: 1
+          });
+        } else {
+          this.props.addRepeatProduct(product.id)
+        }
+      })
+    } else {
+      this.props.addToCart({
+        id: product.id,
+        decathlon_id: product.decathlon_id,
+        title: product.title,
+        description: product.description,
+        brand_id: product.brand_id,
+        min_price: product.min_price,
+        max_price: product.max_price,
+        crossed_price: product.crossed_price,
+        percent_reduction: product.percent_reduction,
+        image_path: product.image_path,
+        rating: product.rating,
+        qty: 1
+      });
+    }
+
+    this.props.history.push("/cart");
+
   }
 
   componentDidMount(){
@@ -111,7 +142,7 @@ class ProductsList extends Component{
               </Link>
             </div>
             <div className="red_button add_to_cart_button">
-              <a href={`/cart/${product.id}`}>add to cart</a>
+              <a onClick={this.handleClick.bind(this, `${product.id}`)}>add to cart</a>
             </div>
           </div>
         )
@@ -120,19 +151,9 @@ class ProductsList extends Component{
 
     return(
       <div className="product-grid">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
         <div className="row">
           {list}
         </div>
-
-        <Footer/>
       </div>
     )
   }
@@ -142,12 +163,13 @@ class ProductsList extends Component{
 const mapStateToProps = state => ({
   products: state.products.items,
   loading: state.products.loading,
-  error: state.products.error
+  error: state.products.error,
+  productsOfCart: state.cartReducer.productsOfCart
 });
 
 function mapDispatchToProps (dispatch) {
-  let actions = bindActionCreators({addToCart}, dispatch);
+  let actions = bindActionCreators({ addToCart, addRepeatProduct }, dispatch);
   return {...actions, dispatch};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductsList));

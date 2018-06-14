@@ -2,13 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
-import { addToCart } from "../../store/actions/cartAction";
-import { Link } from 'react-router-dom';
-
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
+import { addToCart, addRepeatProduct } from "../../store/actions/cartAction";
+import { withRouter } from 'react-router-dom';
 
 import './ProductDetail.css';
 
@@ -19,6 +14,13 @@ class ProductDetail extends Component{
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  getProductsOfCart(){
+    let { productsOfCart } = this.props;
+    return {
+      productsOfCart: productsOfCart
+    }
   }
 
   getProductDetail(){
@@ -32,20 +34,48 @@ class ProductDetail extends Component{
 
   handleClick = () => {
     let product = this.getProductDetail().product;
-    this.props.addToCart({
-      id: product.id,
-      decathlon_id: product.decathlon_id,
-      title: product.title,
-      description: product.description,
-      brand_id: product.brand_id,
-      min_price: product.min_price,
-      max_price: product.max_price,
-      crossed_price: product.crossed_price,
-      percent_reduction: product.percent_reduction,
-      image_path: product.image_path,
-      rating: product.rating,
-      qty: 1
-    });
+    let productsOfCart = this.getProductsOfCart().productsOfCart;
+
+    if(productsOfCart !== undefined && productsOfCart.length !== 0){
+      productsOfCart.forEach((p) => {
+        if (p.id !== product.id){
+
+          this.props.addToCart({
+            id: product.id,
+            decathlon_id: product.decathlon_id,
+            title: product.title,
+            description: product.description,
+            brand_id: product.brand_id,
+            min_price: product.min_price,
+            max_price: product.max_price,
+            crossed_price: product.crossed_price,
+            percent_reduction: product.percent_reduction,
+            image_path: product.image_path,
+            rating: product.rating,
+            qty: 1
+          });
+        } else {
+          this.props.addRepeatProduct(product.id)
+        }
+      })
+    } else {
+      this.props.addToCart({
+        id: product.id,
+        decathlon_id: product.decathlon_id,
+        title: product.title,
+        description: product.description,
+        brand_id: product.brand_id,
+        min_price: product.min_price,
+        max_price: product.max_price,
+        crossed_price: product.crossed_price,
+        percent_reduction: product.percent_reduction,
+        image_path: product.image_path,
+        rating: product.rating,
+        qty: 1
+      });
+    }
+
+    this.props.history.push("/cart");
   }
 
   componentDidMount(){
@@ -70,11 +100,6 @@ class ProductDetail extends Component{
     for(let i = 0; i < 5; i++) {
       result.push(<li key={i}><i className={(i < Math.round(value)) ? "fa fa-star" : "fa fa-star-o"} aria-hidden="true"></i></li>)
     }
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star" aria-hidden="true"></i></li>
-    // <li><i className="fa fa-star-o" aria-hidden="true"></i></li>
     return result;
   }
 
@@ -82,14 +107,6 @@ class ProductDetail extends Component{
     let product = this.getProductDetail().product;
     return(
       <div className="container single_product_container">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
     		<div className="row">
     			<div className="col">
     				<div className="breadcrumbs d-flex flex-row align-items-center">
@@ -129,13 +146,13 @@ class ProductDetail extends Component{
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
               <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-    						<div className="red_button product_add_to_cart_button"><a href={`/cart/${product.id}`}>add to cart</a></div>
+                <a onClick={this.handleClick}>
+    						  <div className="red_button product_add_to_cart_button">add to cart</div>
+                </a>
               </div>
     				</div>
     			</div>
     		</div>
-
-        <Footer/>
     	</div>
     );
   }
@@ -145,11 +162,12 @@ const mapStateToProps = state => ({
   product: state.product.items,
   loading: state.product.loading,
   error: state.product.error,
+  productsOfCart: state.cartReducer.productsOfCart
 })
 
 function mapDispatchToProps  (dispatch) {
-  let actions = bindActionCreators({addToCart}, dispatch);
+  let actions = bindActionCreators({ addToCart, addRepeatProduct }, dispatch);
   return {...actions, dispatch};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductDetail));
