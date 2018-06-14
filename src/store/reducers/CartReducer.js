@@ -87,45 +87,6 @@ export default (state = initialState, action) => {
 
 function storeData(key, value) {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    console.warn("something wrong happened", error);
-    return false;
-  }
-}
-
-function localAddProduct (product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    current.qty += product.qty;
-  } else {
-    current = product;
-  }
-  storeData(key, JSON.stringify(current));
-}
-
-function localDeleteProduct(product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    localStorage.removeItem(key);
-  }
-}
-
-function localDeleteAllProducts() {
-  const productKey = "product_";
-  for (let i = localStorage.length - 1; i >= 0; i--) {
-    const key = localStorage.key(i);
-    if (key.substr(0, productKey.length) === productKey) {
-      localStorage.removeItem(key);
-    }
-  }
-}
-
-function storeData(key, value) {
-  try {
     localStorage.setItem(key, value);
     return true;
   } catch (error) {
@@ -148,8 +109,8 @@ function localAddProduct (product) {
   }
 }
 
-function localDeleteProduct(product) {
-  const key = "product_" + product.id;
+function localDeleteProduct(id) {
+  const key = "product_" + id;
   let current = localStorage.getItem(key);
   if (current !== null) {
     localStorage.removeItem(key);
