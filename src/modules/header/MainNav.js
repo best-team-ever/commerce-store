@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {connect} from "react-redux";
 import './MainNav.css';
-// import { signedHandler } from "../../store/handlers/signedHandlers";
-
 
 class MainNav extends Component {
   getProductOfCart(){
@@ -15,28 +13,8 @@ class MainNav extends Component {
   }
 
   render() {
-    // console.log("props Main", this.props);
     let numberProductsOfCart = this.getProductOfCart().productsOfCart.length? this.getProductOfCart().productsOfCart.length : 0;
     const propsss = this.props
-
-    //Google connect
-    window.googleConnectCallback = function(googleUser) {
-    // Useful data for your client-side scripts:
-    const profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail());
-    // The ID token you need to pass to your backend:
-    const id_token = googleUser.getAuthResponse().id_token;
-    console.log("ID Token: " + id_token);
-    console.log("MAJ du state connected");
-    console.log("props : ",propsss);
-    // propsss.signedIn();
-    };
-    //Google connect
 
     return (
       <div className="main_nav_container">
@@ -60,13 +38,6 @@ class MainNav extends Component {
 											<span id="checkout_items" className="checkout_items">{numberProductsOfCart}</span>
 										</Link>
   								</li>
-                  {/* <li >
-                    <div
-                      className="g-signin2"
-                      data-onsuccess="googleConnectCallback"
-                      data-theme="dark"
-                    />
-                  </li> */}
   							</ul>
   							<div className="hamburger_container">
   								<i className="fa fa-bars" aria-hidden="true"></i>
@@ -85,10 +56,5 @@ const mapStateToProps = (state) => ({
   loggedIn: state.cartReducer.loggedIn
 })
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     signedIn: () => signedHandler(dispatch)
-//   };
-// }
 
 export default connect(mapStateToProps)(MainNav);
