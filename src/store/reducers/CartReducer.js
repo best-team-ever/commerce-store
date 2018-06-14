@@ -133,14 +133,16 @@ function storeData(key, value) {
 }
 
 function localAddProduct (product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    current.qty += product.qty;
-  } else {
-    current = product;
+  if (product){
+    const key = "product_" + product.id;
+    let current = localStorage.getItem(key);
+    if (current !== null) {
+      current.qty += product.qty;
+    } else {
+      current = product;
+    }
+    storeData(key, JSON.stringify(current));
   }
-  storeData(key, JSON.stringify(current));
 }
 
 function localDeleteProduct(product) {
