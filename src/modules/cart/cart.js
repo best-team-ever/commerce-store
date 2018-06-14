@@ -69,7 +69,6 @@ class Cart extends Component {
   }
 
   render(){
-    console.log("props Cart", this.props);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 

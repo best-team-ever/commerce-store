@@ -19,7 +19,7 @@ import ProductDetail from "./modules/products/ProductDetail";
 import Shipping from "./modules/shipping/Shipping";
 import Payment from "./modules/payment/Payment";
 import Confirmation from "./modules/payment/Confirmation";
-import PaymentSuccess from "./modules/payment/PaymentSuccess";
+import PaymentResult from "./modules/payment/PaymentResult";
 import CategoriesList from "./modules/categories/CategoriesList";
 import { Provider } from "react-redux";
 import store from './store/reducers/stores';
@@ -38,16 +38,16 @@ class App extends Component {
             <HamburgerMenu/>
             <div className="main_slider"/>
 
-            <Switch>
-              <Route exact path="/" component={CategoriesList}/>
-              <Route path="/categories/:id/products" component={ProductsList}></Route>
-              <Route path="/products/:id" component={ProductDetail}/>
-              <Route path="/cart" component={Cart}/>
-              <Route path="/shipping" component={Shipping}/>
-              <Route path="/payment" component={Payment}/>
-              <Route path="/confirmation" component={Confirmation}/>
-              <Route path="/paymentSuccess" component={PaymentSuccess}/>
-            </Switch>
+        <Switch>
+          <Route exact path="/" component={CategoriesList}/>
+          <Route path="/categories/:id/products" component={ProductsList}></Route>
+          <Route path="/products/:id" component={ProductDetail}/>
+          <Route path="/cart" component={Cart}/>
+          <Route path="/shipping" component={Shipping}/>
+          <Route path="/payment" component={Payment}/>
+          <Route path="/confirmation" component={Confirmation}/>
+          <Route path="/paymentResult" component={PaymentResult}/>
+        </Switch>
 
             <Footer/>
           </div>
