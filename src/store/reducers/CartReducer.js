@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
       })
       console.log("newArray : ", newArray);
       return {
-        ...state, productsOfCart : newArray
+        ...state, productsOfCart : [...newArray]
       }
     case SIGNED:
       console.log("nouvel état de loggedIn", state.loggedIn, " => ", !action.payload.signedInOut);
@@ -81,6 +81,7 @@ export default (state = initialState, action) => {
       }
     default:
       return state;
+
   }
 }
 
