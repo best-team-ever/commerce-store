@@ -144,3 +144,9 @@ textarea:hover
 	font-weight: 500;
 	cursor: pointer;
 }
+
+.googleButton
+{
+  /* color: #2b6bd1; */
+  background-color: "red";
+}
