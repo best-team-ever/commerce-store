@@ -5,11 +5,13 @@ import {
   CREATE_SHIPPING,
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
-  UPDATE_QTY
+  UPDATE_QTY,
+  SIGNED_IN
 } from "../actions/ActionTypes";
 
 const initialState = {
-  productsOfCart: []
+  productsOfCart: [],
+  loggedIn: false,
 };
 
 export default (state = initialState, action) => {
@@ -58,6 +60,11 @@ export default (state = initialState, action) => {
       return {
         ...state, productsOfCart : newArray
       }
+    case SIGNED_IN:
+      return {
+        ...state,
+        loggedIn: true
+      }
     default:
       return state;
   }
@@ -74,4 +81,3 @@ function incrementQtyRepeatProducts(list, repeatId){
 
   return newList;
 }
-
