@@ -46,30 +46,18 @@ class ProductsList extends Component{
   handleClick (productId){
     let product = this.getOneDetail(productId);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
-
-    if(productsOfCart !== undefined && productsOfCart.length !== 0){
+    let canAddNewProduct = true;
+    if(productsOfCart.length !== 0){
       productsOfCart.forEach((p) => {
-        if (p.id !== product.id){
-
-          this.props.addToCart({
-            id: product.id,
-            decathlon_id: product.decathlon_id,
-            title: product.title,
-            description: product.description,
-            brand_id: product.brand_id,
-            min_price: product.min_price,
-            max_price: product.max_price,
-            crossed_price: product.crossed_price,
-            percent_reduction: product.percent_reduction,
-            image_path: product.image_path,
-            rating: product.rating,
-            qty: 1
-          });
-        } else {
-          this.props.addRepeatProduct(product.id)
+        if (p.id === product.id){
+          canAddNewProduct = false;
         }
       })
     } else {
+      canAddNewProduct = true;
+    }
+
+    if (canAddNewProduct === true){
       this.props.addToCart({
         id: product.id,
         decathlon_id: product.decathlon_id,
@@ -84,10 +72,27 @@ class ProductsList extends Component{
         rating: product.rating,
         qty: 1
       });
+    }else {
+      this.props.addRepeatProduct(product.id)
     }
 
-    this.props.history.push("/cart");
+    // this.props.addToCart({
+    //   id: product.id,
+    //   decathlon_id: product.decathlon_id,
+    //   title: product.title,
+    //   description: product.description,
+    //   brand_id: product.brand_id,
+    //   min_price: product.min_price,
+    //   max_price: product.max_price,
+    //   crossed_price: product.crossed_price,
+    //   percent_reduction: product.percent_reduction,
+    //   image_path: product.image_path,
+    //   rating: product.rating,
+    //   qty: 0
+    // });
 
+    console.log("handle:: ", this.props);
+    this.props.history.push("/cart");
   }
 
   componentDidMount(){

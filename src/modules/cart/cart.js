@@ -43,12 +43,11 @@ class Cart extends Component {
 
   deleteItem = (productId) => {
     console.log("deleteItem");
-    // console.log("thisprops",this.props);
     this.props.deleteFromCart(productId)
   };
 
   updateQty2 = (event, index) => {
-    console.log("updateQty2");
+    console.log("this.getProductsOfCart().productsOfCart: ", this.getProductsOfCart().productsOfCart);
     this.props.updateQty(event, index);
   }
 
@@ -69,8 +68,8 @@ class Cart extends Component {
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
     let productsList = [];
-    if(productsOfCart){
-     productsList = productsOfCart.map((product, index) => (
+    if(productsOfCart.length !== 0){
+      productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
           <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
           <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>

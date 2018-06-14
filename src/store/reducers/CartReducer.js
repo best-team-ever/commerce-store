@@ -15,10 +15,33 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type){
     case ADD_TO_CART:
+      // const { qty } = action.payload.newProduct
       return {
         ...state,
-        productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
+        productsOfCart: [ action.payload.newProduct, ...state.productsOfCart ]
+        // productsOfCart: state.productsOfCart.concat(action.payload.newProduct)
       }
+
+      // let hash = {};
+      // return Object.assign({}, state, {
+      //   productsOfCart: state.productsOfCart.concat(action.payload.newProduct).reduce(function(item, next) {
+      //     hash[next.name] ? '' : hash[next.name] = true && item.push(next);
+      //     return item
+      //   }, [])
+      // });
+
+      //
+
+
+      //
+      // return {
+      //   ...state,
+      //   productsOfCart: state.productsOfCart.concat(action.payload.newProduct).reduce(function(item, next) {
+      //     hash[next.id] ? '' : hash[next.id] = true && item.push(next);
+      //     return item
+      //   }, [])
+      // };
+
     case DELETE_FROM_CART:
       console.log("reducer");
       return {
@@ -26,11 +49,23 @@ export default (state = initialState, action) => {
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
       }
     case ADD_REPEAT_PRODUCT:
-      incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
+      const updatedItems = state.productsOfCart.map(item => {
+        if(item.id === action.payload.id){
+          return { ...item, qty: item.qty+1 }
+        }
+        return item
+      })
       return {
         ...state,
-        productsOfCart: [...state.productsOfCart]
+        productsOfCart: [...updatedItems]
       }
+
+      /*******Dont delete*******/
+      // incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
+      // return {
+      //   ...state,
+      //   productsOfCart: [...state.productsOfCart]
+      // }
     case CREATE_SHIPPING:
       return {
         ...state,
@@ -47,31 +82,30 @@ export default (state = initialState, action) => {
         order: [...state.order, action.payload.order]
       }
     case UPDATE_QTY:
-      const newArray = state.productsOfCart.map((value, indexMap) => {
+      state.productsOfCart.map((value, indexMap) => {
         if (action.payload.index === indexMap) {
           return {...value, qty: action.payload.qty}
         } else {
           return value;
         }
       })
-      console.log("newArray : ", newArray);
+
+      // console.log("newArray : ", newArray);
       return {
-        ...state, productsOfCart : newArray
+        productsOfCart : state.productsOfCart
       }
     default:
       return state;
   }
 }
 
-
-function incrementQtyRepeatProducts(list, repeatId){
-  let newList = list.forEach((element) => {
-    if(element.id === repeatId){
-      element.qty = element.qty+1;
-      console.log("element.qty: ", element.qty);
-    }
-  })
-
-  return newList;
-}
+/*****Dont delete*****/
+// function incrementQtyRepeatProducts(list, repeatId){
+//   let newList = list.forEach((element) => {
+//     if(element.id === repeatId){
+//       element.qty = element.qty+1;
+//     }
+//   })
+//   return newList;
+// }
 
