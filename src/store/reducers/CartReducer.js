@@ -135,15 +135,16 @@ function storeData(key, value) {
 }
 
 function localAddProduct (product) {
-  if (product){
+  if (product) {
     const key = "product_" + product.id;
-    let current = localStorage.getItem(key);
-    if (current !== null) {
+    const stored = localStorage.getItem(key);
+    if (stored !== null) {
+      let current = JSON.parse(stored);
       current.qty += product.qty;
+      storeData(key, JSON.stringify(current));
     } else {
-      current = product;
+      storeData(key, JSON.stringify(product));
     }
-    storeData(key, JSON.stringify(current));
   }
 }
 
