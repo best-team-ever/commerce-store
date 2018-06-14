@@ -39,3 +39,11 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.img-thumbnail {
+  width: 30%;
+}
+
+.th_img {
+  width: 30px;
+}

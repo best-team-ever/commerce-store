@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     case DELETE_FROM_CART:
-      localDeleteProduct(action.payload.productsOfCart);
+      localDeleteProduct(action.payload.id);
       return {
         ...state,
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
       localDeleteAllProducts();
       return {
         ...state,
-        productsOfCart: initialState.productsOfCart
+        productsOfCart: []
       }
     case ADD_REPEAT_PRODUCT:
       incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
@@ -92,7 +92,7 @@ function incrementQtyRepeatProducts(list, repeatId){
 
 function storeData(key, value) {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, value);
     return true;
   } catch (error) {
     console.warn("something wrong happened", error);
@@ -102,13 +102,14 @@ function storeData(key, value) {
 
 function localAddProduct (product) {
   const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
+  const stored = localStorage.getItem(key);
+  if (stored !== null) {
+    let current = JSON.parse(stored);
     current.qty += product.qty;
+    storeData(key, JSON.stringify(current));
   } else {
-    current = product;
+    storeData(key, JSON.stringify(product));
   }
-  storeData(key, JSON.stringify(current));
 }
 
 function localDeleteProduct(product) {
@@ -137,12 +138,9 @@ function localGetProducts(product) {
       const key = localStorage.key(i);
       if (key.substr(0, productKey.length) === productKey) {
         const sValue = localStorage.getItem(key);
-        const oValue = JSON.parse(sValue);
-        console.log(oValue);
-        cart.push(oValue);
+        cart.push(JSON.parse(sValue));
       }
     }
   }
-  console.log(cart);
   return cart;
 }

@@ -77,10 +77,10 @@ class Cart extends Component {
     if(productsOfCart.length > 0){
      productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
-          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
+          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" alt={`${product.title}`}/></td>
           <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>
           <td>{product.description}</td>
-          <td>{product.min_price}</td>
+          <td className="text-right">{(product.min_price).toFixed(2)}</td>
           <td className="qty">
             <div className="signs">
               <button onClick={this.increment}>+</button>
@@ -89,11 +89,11 @@ class Cart extends Component {
             <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>
           </td>
-          <td>
+          <td className="text-center">
             <i className="fas fa-trash-alt" onClick={this.deleteItem.bind(this, `${product.id}`)}></i>
           </td>
-          <td>
-            {Math.round(product.min_price*100 * product.qty)/100}&nbsp;€
+          <td className="text-right">
+            {(Math.round(product.min_price*100 * product.qty)/100).toFixed(2)}&nbsp;€
           </td>
         </tr>
       ));
@@ -108,7 +108,7 @@ class Cart extends Component {
           <td></td>
           <td className="qty"></td>
           <td></td>
-          <td>{total}&nbsp;€</td>
+          <td className="text-right">{total.toFixed(2)}&nbsp;€</td>
         </tr>
       );
     }
@@ -121,8 +121,8 @@ class Cart extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Product name</th>
+                  <th>Product</th>
+                  <th>Name</th>
                   <th>Description</th>
                   <th>Unit price</th>
                   <th>Quantity</th>
