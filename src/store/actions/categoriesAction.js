@@ -23,7 +23,8 @@ export function fetchCategories() {
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
-        return dispatch(fetchCategoriesSuccess(json));
+        const sorted = json.sort( (a, b) => (a.label.localeCompare(b.label)));
+        return dispatch(fetchCategoriesSuccess(sorted));
       })
       .catch(error => dispatch(fetchCategoriesError(error)));
   };
