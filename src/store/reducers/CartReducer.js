@@ -6,7 +6,9 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED_IN
+  SIGNED_IN,
+  INCREMENT_BASKET,
+  DECREMENT_BASKET
 } from "../actions/ActionTypes";
 
 const initialState = {
@@ -58,7 +60,7 @@ export default (state = initialState, action) => {
       })
       console.log("newArray : ", newArray);
       return {
-        ...state, productsOfCart : newArray
+        ...state, productsOfCart : [...newArray]
       }
     case SIGNED_IN:
       return {
@@ -67,6 +69,7 @@ export default (state = initialState, action) => {
       }
     default:
       return state;
+
   }
 }
 

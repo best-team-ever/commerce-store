@@ -14,6 +14,7 @@ let total = 0;
 class Cart extends Component {
   constructor(props) {
     super(props);
+
     this.return = this.return.bind (this);
     this.validCart = this.validCart.bind (this);
   }
@@ -26,19 +27,23 @@ class Cart extends Component {
   }
 
   return = () => {
-    console.log("return...");
+    window.history.back();
   };
 
   validCart = () => {
     console.log("valid cart");
   };
 
-  increment = () => {
-    console.log("plus +");
-  };
+  increment = (qty, index) => {
+    this.props.updateQty(qty += 1, index)
+   };
 
-  decrement = () => {
-    console.log("moins -");
+  decrement = (qty, index) => {
+    if (qty === 1) {
+      this.deleteItem()
+    } else {
+    this.props.updateQty(qty -= 1, index)
+    }
   };
 
   deleteItem = (productId) => {
@@ -79,8 +84,8 @@ class Cart extends Component {
           <td>{product.min_price}</td>
           <td className="qty">
             <div className="signs">
-              <button onClick={this.increment}>+</button>
-              <button onClick={this.decrement}>-</button>
+              <button onClick={() => this.increment(product.qty, index)}>+</button>
+              <button onClick={() => this.decrement(product.qty, index)}>-</button>
             </div>
             <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>
@@ -132,9 +137,9 @@ class Cart extends Component {
             </table>
           </div>
           <div className="cardCoteACote">
-            <Link to="/">
-              <button type="button" className="btn btn-primary">Return</button>
-            </Link>
+            <div>
+              <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
+            </div>
             {
               numberProducts?
                 (
