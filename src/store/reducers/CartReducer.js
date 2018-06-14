@@ -18,7 +18,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type){
     case ADD_TO_CART:
-      localAddProduct(action.payload.productsOfCart);
+      localAddProduct(action.payload.newProduct);
       return {
         ...state,
         productsOfCart: [ action.payload.newProduct, ...state.productsOfCart ]
@@ -64,12 +64,12 @@ export default (state = initialState, action) => {
     case UPDATE_QTY:
       const newArray = state.productsOfCart.map((value, indexMap) => {
         if (action.payload.index === indexMap) {
+          localChangeProductQuantity(value.id, action.payload.qty);
           return {...value, qty: action.payload.qty}
         } else {
           return value;
         }
       })
-      console.log("newArray : ", newArray);
       return {
         ...state, productsOfCart : [...newArray]
       }
@@ -87,45 +87,6 @@ export default (state = initialState, action) => {
 
 function storeData(key, value) {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    console.warn("something wrong happened", error);
-    return false;
-  }
-}
-
-function localAddProduct (product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    current.qty += product.qty;
-  } else {
-    current = product;
-  }
-  storeData(key, JSON.stringify(current));
-}
-
-function localDeleteProduct(product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    localStorage.removeItem(key);
-  }
-}
-
-function localDeleteAllProducts() {
-  const productKey = "product_";
-  for (let i = localStorage.length - 1; i >= 0; i--) {
-    const key = localStorage.key(i);
-    if (key.substr(0, productKey.length) === productKey) {
-      localStorage.removeItem(key);
-    }
-  }
-}
-
-function storeData(key, value) {
-  try {
     localStorage.setItem(key, value);
     return true;
   } catch (error) {
@@ -134,7 +95,7 @@ function storeData(key, value) {
   }
 }
 
-function localAddProduct (product) {
+function localAddProduct(product) {
   if (product) {
     const key = "product_" + product.id;
     const stored = localStorage.getItem(key);
@@ -148,8 +109,18 @@ function localAddProduct (product) {
   }
 }
 
-function localDeleteProduct(product) {
-  const key = "product_" + product.id;
+function localChangeProductQuantity(id, value) {
+  const key = "product_" + id;
+  const stored = localStorage.getItem(key);
+  if (stored !== null) {
+    let current = JSON.parse(stored);
+    current.qty = value;
+    storeData(key, JSON.stringify(current));
+  }
+}
+
+function localDeleteProduct(id) {
+  const key = "product_" + id;
   let current = localStorage.getItem(key);
   if (current !== null) {
     localStorage.removeItem(key);
