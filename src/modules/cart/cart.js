@@ -35,14 +35,16 @@ class Cart extends Component {
   };
 
   increment = (qty, index) => {
-    this.props.updateQty(qty += 1, index)
+    const qtyInt = parseInt(qty);
+    this.props.updateQty(qtyInt + 1, index)
    };
 
-  decrement = (qty, index) => {
+  decrement = (qty, productId, index) => {
     if (qty === 1) {
-      this.deleteItem()
+      this.deleteItem(productId)
     } else {
-    this.props.updateQty(qty -= 1, index)
+    const qtyInt = parseInt(qty);
+    this.props.updateQty(qtyInt - 1, index)
     }
   };
 
@@ -92,7 +94,7 @@ class Cart extends Component {
           <td className="qty">
             <div className="signs">
               <button onClick={() => this.increment(product.qty, index)}>+</button>
-              <button onClick={() => this.decrement(product.qty, index)}>-</button>
+              <button onClick={() => this.decrement(product.qty, product.id, index)}>-</button>
             </div>
             <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>

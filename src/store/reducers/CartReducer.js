@@ -135,14 +135,16 @@ function storeData(key, value) {
 }
 
 function localAddProduct (product) {
-  const key = "product_" + product.id;
-  const stored = localStorage.getItem(key);
-  if (stored !== null) {
-    let current = JSON.parse(stored);
-    current.qty += product.qty;
-    storeData(key, JSON.stringify(current));
-  } else {
-    storeData(key, JSON.stringify(product));
+  if (product) {
+    const key = "product_" + product.id;
+    const stored = localStorage.getItem(key);
+    if (stored !== null) {
+      let current = JSON.parse(stored);
+      current.qty += product.qty;
+      storeData(key, JSON.stringify(current));
+    } else {
+      storeData(key, JSON.stringify(product));
+    }
   }
 }
 
