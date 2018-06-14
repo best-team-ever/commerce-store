@@ -1,14 +1,31 @@
-import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART, ADD_REPEAT_PRODUCT, UPDATE_QTY, SIGNED_IN} from "./ActionTypes";
 
-export const addToCart = (productsOfCart) => ({
+import {
+  ADD_TO_CART,
+  CREATE_ORDER,
+  CREATE_PAYMENT,
+  CREATE_SHIPPING,
+  DELETE_FROM_CART,
+  ADD_REPEAT_PRODUCT,
+  UPDATE_QTY,
+  SIGNED,
+  DELETE_CART
+  } from "./ActionTypes";
+
+
+export const addToCart = (newProduct) => ({
   type: ADD_TO_CART,
-  payload: { productsOfCart }
+  payload: { newProduct }
 });
 
 export const deleteFromCartAction = (id) => ({
   type: DELETE_FROM_CART,
   payload: { id }
 });
+
+export const deleteCartAction = () => ({
+  type: DELETE_CART,
+  payload: {}
+})
 
 export const addRepeatProduct = (id) => ({
   type: ADD_REPEAT_PRODUCT,
@@ -35,7 +52,7 @@ export const updateQtyAction = (qty, index) => ({
   payload: { qty, index }
 })
 
-export const signedInAction = () => ({
-  type: SIGNED_IN,
-  payload: {}
+export const signedAction = (signedInOut) => ({
+  type: SIGNED,
+  payload: {signedInOut}
 })

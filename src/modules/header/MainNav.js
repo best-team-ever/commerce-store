@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {connect} from "react-redux";
 import './MainNav.css';
-import { signedInHandler } from "../../store/handlers/signedHandlers";
+// import { signedHandler } from "../../store/handlers/signedHandlers";
 
 
 class MainNav extends Component {
@@ -15,7 +15,7 @@ class MainNav extends Component {
   }
 
   render() {
-    console.log("props Main", this.props);
+    // console.log("props Main", this.props);
     let numberProductsOfCart = this.getProductOfCart().productsOfCart.length? this.getProductOfCart().productsOfCart.length : 0;
     const propsss = this.props
 
@@ -34,7 +34,7 @@ class MainNav extends Component {
     console.log("ID Token: " + id_token);
     console.log("MAJ du state connected");
     console.log("props : ",propsss);
-    propsss.signedIn();
+    // propsss.signedIn();
     };
     //Google connect
 
@@ -60,13 +60,13 @@ class MainNav extends Component {
 											<span id="checkout_items" className="checkout_items">{numberProductsOfCart}</span>
 										</Link>
   								</li>
-                  <li >
+                  {/* <li >
                     <div
                       className="g-signin2"
                       data-onsuccess="googleConnectCallback"
                       data-theme="dark"
                     />
-                  </li>
+                  </li> */}
   							</ul>
   							<div className="hamburger_container">
   								<i className="fa fa-bars" aria-hidden="true"></i>
@@ -85,10 +85,10 @@ const mapStateToProps = (state) => ({
   loggedIn: state.cartReducer.loggedIn
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signedIn: () => signedInHandler(dispatch)
-  };
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     signedIn: () => signedHandler(dispatch)
+//   };
+// }
 
-export default connect(mapStateToProps,mapDispatchToProps)(MainNav);
+export default connect(mapStateToProps)(MainNav);

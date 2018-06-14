@@ -1,7 +1,7 @@
-import { signedInAction } from "../actions/cartAction";
+import { signedAction } from "../actions/cartAction";
 
 
-export function signedInHandler(dispatch) {
+export function signedHandler(signedInOut, dispatch) {
   console.log("handlers sign");
-  dispatch(signedInAction());
+  dispatch(signedAction());
 }

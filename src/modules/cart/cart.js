@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 // import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
-import { deleteFromCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
+import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
 
 import './cart.css';
@@ -49,16 +49,23 @@ class Cart extends Component {
   deleteItem = (productId) => {
     console.log("deleteItem");
     // console.log("thisprops",this.props);
-    this.props.deleteFromCart(productId)
+    this.props.deleteFromCart(productId);
+  };
+
+  deleteCart = () => {
+    this.props.deleteCart();
+  };
+
+  deleteCart = () => {
+    this.props.deleteCart();
   };
 
   updateQty2 = (event, index) => {
-    console.log("updateQty2");
     this.props.updateQty(event, index);
   }
 
   total = (value) => {
-    total = total + value
+    total = total + value;
   }
 
   componentDidMount() {
@@ -75,13 +82,13 @@ class Cart extends Component {
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
     let productsList = [];
-    if(productsOfCart){
-     productsList = productsOfCart.map((product, index) => (
+    if(productsOfCart.length !== 0){
+      productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
-          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
+          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" alt={`${product.title}`}/></td>
           <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>
           <td>{product.description}</td>
-          <td>{product.min_price}</td>
+          <td className="text-right">{(product.min_price).toFixed(2)}</td>
           <td className="qty">
             <div className="signs">
               <button onClick={() => this.increment(product.qty, index)}>+</button>
@@ -90,11 +97,11 @@ class Cart extends Component {
             <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>
           </td>
-          <td>
+          <td className="text-center">
             <i className="fas fa-trash-alt" onClick={this.deleteItem.bind(this, `${product.id}`)}></i>
           </td>
-          <td>
-            {Math.round(product.min_price*100 * product.qty)/100}&nbsp;€
+          <td className="text-right">
+            {(Math.round(product.min_price*100 * product.qty)/100).toFixed(2)}&nbsp;€
           </td>
         </tr>
       ));
@@ -109,7 +116,7 @@ class Cart extends Component {
           <td></td>
           <td className="qty"></td>
           <td></td>
-          <td>{total}&nbsp;€</td>
+          <td className="text-right">{total.toFixed(2)}&nbsp;€</td>
         </tr>
       );
     }
@@ -122,8 +129,8 @@ class Cart extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Product name</th>
+                  <th>Product</th>
+                  <th>Name</th>
                   <th>Description</th>
                   <th>Unit price</th>
                   <th>Quantity</th>
@@ -137,9 +144,8 @@ class Cart extends Component {
             </table>
           </div>
           <div className="cardCoteACote">
-            <div>
-              <button type="button" className="btn btn-primary" onClick={this.return}>Return</button>
-            </div>
+            <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
+            <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {
               numberProducts?
                 (
@@ -167,10 +173,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (id) => deleteFromCartHandler(id, dispatch),
+    deleteCart: () => deleteCartHandler(dispatch),
     updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch)
   };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
-
-// export default (Cart);

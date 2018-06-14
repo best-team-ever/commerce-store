@@ -1,4 +1,4 @@
-import { deleteFromCartAction, updateQtyAction } from "../actions/cartAction";
+import { deleteFromCartAction, updateQtyAction, deleteCartAction } from "../actions/cartAction";
 
 
 export function deleteFromCartHandler(id, dispatch) {
@@ -9,7 +9,7 @@ export function deleteFromCartHandler(id, dispatch) {
   //     dispatch(deleteFromCartAction(id))
   //   },
   // }
-  dispatch(deleteFromCartAction(id))
+  dispatch(deleteFromCartAction(id));
 }
 
 export function updateQtyHandlers(qty, index, dispatch) {
@@ -18,4 +18,8 @@ export function updateQtyHandlers(qty, index, dispatch) {
   // }
   console.log("updateQty ", qty, "index", index);
   dispatch(updateQtyAction(qty, index));
+}
+
+export function deleteCartHandler(dispatch) {
+  dispatch(deleteCartAction());
 }
