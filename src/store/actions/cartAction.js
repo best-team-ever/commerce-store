@@ -1,4 +1,12 @@
-import {ADD_TO_CART, CREATE_ORDER, CREATE_PAYMENT, CREATE_SHIPPING, DELETE_FROM_CART, ADD_REPEAT_PRODUCT, UPDATE_QTY, SIGNED_IN} from "./ActionTypes";
+import {
+  ADD_TO_CART,
+  CREATE_ORDER,
+  CREATE_PAYMENT,
+  CREATE_SHIPPING,
+  DELETE_FROM_CART,
+  ADD_REPEAT_PRODUCT,
+  UPDATE_QTY,
+  SIGNED} from "./ActionTypes";
 
 export const addToCart = (productsOfCart) => ({
   type: ADD_TO_CART,
@@ -35,7 +43,7 @@ export const updateQtyAction = (qty, index) => ({
   payload: { qty, index }
 })
 
-export const signedInAction = () => ({
-  type: SIGNED_IN,
-  payload: {}
+export const signedAction = (signedInOut) => ({
+  type: SIGNED,
+  payload: {signedInOut}
 })
