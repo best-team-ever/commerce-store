@@ -19,7 +19,7 @@ import ProductDetail from "./modules/products/ProductDetail";
 import Shipping from "./modules/shipping/Shipping";
 import Payment from "./modules/payment/Payment";
 import Confirmation from "./modules/payment/Confirmation";
-import PaymentSuccess from "./modules/payment/PaymentSuccess";
+import PaymentResult from "./modules/payment/PaymentResult";
 import CategoriesList from "./modules/categories/CategoriesList";
 
 class App extends Component {
@@ -42,7 +42,7 @@ class App extends Component {
           <Route path="/shipping" component={Shipping}/>
           <Route path="/payment" component={Payment}/>
           <Route path="/confirmation" component={Confirmation}/>
-          <Route path="/paymentSuccess" component={PaymentSuccess}/>
+          <Route path="/paymentResult" component={PaymentResult}/>
         </Switch>
 
         <Footer/>

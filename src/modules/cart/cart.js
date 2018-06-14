@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-// import { bindActionCreators } from "redux";
-// import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
 import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
 
@@ -79,7 +77,6 @@ class Cart extends Component {
   }
 
   render(){
-    console.log("props Cart", this.props);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 

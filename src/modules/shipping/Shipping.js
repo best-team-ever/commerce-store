@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { createShipping } from "../../store/actions/cartAction";
+import { createShipping, getToken } from "../../store/actions/cartAction";
 import { withRouter } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 
 import './shipping.css';
 
@@ -112,7 +113,13 @@ class Shipping extends Component{
                   data-error="City is required."/>
               </div>
               <div>
-                <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>
+                <StripeCheckout
+                  token={this.props.dispatch(getToken)}
+                  currency="EUR"
+                  stripeKey={ process.env.REACT_APP_PUBLISHABLE_KEY }
+                >
+                  <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
+                </StripeCheckout>
               </div>
             </form>
           </div>
@@ -123,9 +130,14 @@ class Shipping extends Component{
   }
 }
 
+const mapStateToProps = (state) => ({
+  // productsOfCart: state.cartReducer.productsOfCart
+  paymentStatus: state.cartReducer.paymentStatus
+});
+
 function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createShipping}, dispatch);
   return {...actions, dispatch};
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(Shipping));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Shipping));
