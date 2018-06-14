@@ -70,7 +70,7 @@ class Cart extends Component {
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
     let productsList = [];
-    if(productsOfCart){
+    if(productsOfCart.length > 0){
      productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
           <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
