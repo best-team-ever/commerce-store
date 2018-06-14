@@ -4,7 +4,19 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {connect} from "react-redux";
 import { signedHandler } from "../../store/handlers/signedHandlers";
 
+// const family = "";
+
 class TopNav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      pic: "",
+
+    }
+  }
+
+
   getLoginStatus(){
     let { loggedIn } = this.props;
     return {
@@ -12,8 +24,16 @@ class TopNav extends Component {
     }
   }
 
-  responseGoogle = (response) => {
-    console.log("sur le point de mettre logué dans le state");
+  responseGoogle = (googleUser) => {
+    const familyName = googleUser.profileObj.familyName;
+    // family = googleUser.profileObj.familyName;
+    const name =googleUser.profileObj.name;
+    const pic =googleUser.profileObj.imageUrl;
+    this.setState({pic: pic})
+    this.setState({name: name})
+    console.log(familyName);
+    console.log(name);
+    console.log(pic);
 
     this.props.signed(true);
   }
@@ -22,6 +42,7 @@ class TopNav extends Component {
     console.log("sur le point de mettre délogué dans le state");
     this.props.signed(false);
   }
+
 
   render() {
     console.log("logué ", this.getLoginStatus().loggedIn);
@@ -62,8 +83,15 @@ class TopNav extends Component {
                   </li> */}
                   <li className="account">
                     <a href="./">
-                      My Account
-                      <i className="fa fa-angle-down"></i>
+                    {
+                      this.getLoginStatus().loggedIn
+                      ? <p> <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
+                        <i className="fa fa-angle-down"></i>
+                      </p>
+                      : <p>My Account&nbsp;&nbsp;
+                        <i className="fa fa-angle-down"></i>
+                      </p>
+                    }
                     </a>
                     <ul className="account_selection">
                       <li><a href="./"><i className="fa fa-sign-in" aria-hidden="true"></i>
