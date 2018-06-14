@@ -35,30 +35,18 @@ class ProductDetail extends Component{
   handleClick = () => {
     let product = this.getProductDetail().product;
     let productsOfCart = this.getProductsOfCart().productsOfCart;
-
-    if(productsOfCart !== undefined && productsOfCart.length !== 0){
+    let canAddNewProduct = true;
+    if(productsOfCart.length !== 0){
       productsOfCart.forEach((p) => {
-        if (p.id !== product.id){
-
-          this.props.addToCart({
-            id: product.id,
-            decathlon_id: product.decathlon_id,
-            title: product.title,
-            description: product.description,
-            brand_id: product.brand_id,
-            min_price: product.min_price,
-            max_price: product.max_price,
-            crossed_price: product.crossed_price,
-            percent_reduction: product.percent_reduction,
-            image_path: product.image_path,
-            rating: product.rating,
-            qty: 1
-          });
-        } else {
-          this.props.addRepeatProduct(product.id)
+        if (p.id === product.id){
+          canAddNewProduct = false;
         }
       })
     } else {
+      canAddNewProduct = true;
+    }
+
+    if (canAddNewProduct === true){
       this.props.addToCart({
         id: product.id,
         decathlon_id: product.decathlon_id,
@@ -73,6 +61,8 @@ class ProductDetail extends Component{
         rating: product.rating,
         qty: 1
       });
+    }else {
+      this.props.addRepeatProduct(product.id)
     }
 
     this.props.history.push("/cart");
@@ -145,7 +135,7 @@ class ProductDetail extends Component{
     					<div className="original_price">{product.crossed_price > 0 ? `${product.crossed_price} €` : ""}</div>
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
-              <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+              <div className="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                 <a onClick={this.handleClick}>
     						  <div className="red_button product_add_to_cart_button">add to cart</div>
                 </a>

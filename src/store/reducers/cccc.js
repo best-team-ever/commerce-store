@@ -6,7 +6,7 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED,
+  SIGNED_IN,
   DELETE_CART
 } from "../actions/ActionTypes";
 
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       localAddProduct(action.payload.productsOfCart);
       return {
         ...state,
-        productsOfCart: [ action.payload.newProduct, ...state.productsOfCart ]
+        productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     case DELETE_FROM_CART:
       localDeleteProduct(action.payload.productsOfCart);
@@ -36,15 +36,10 @@ export default (state = initialState, action) => {
         productsOfCart: initialState.productsOfCart
       }
     case ADD_REPEAT_PRODUCT:
-      const updatedItems = state.productsOfCart.map(item => {
-        if(item.id === action.payload.id){
-          return { ...item, qty: item.qty+1 }
-        }
-        return item
-      })
+      incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
       return {
         ...state,
-        productsOfCart: [...updatedItems]
+        productsOfCart: [...state.productsOfCart]
       }
     case CREATE_SHIPPING:
       return {
@@ -73,54 +68,26 @@ export default (state = initialState, action) => {
       return {
         ...state, productsOfCart : newArray
       }
-    case SIGNED:
-      console.log("nouvel état de loggedIn", state.loggedIn, " => ", !action.payload.signedInOut);
+    case SIGNED_IN:
       return {
         ...state,
-        loggedIn: !action.payload.signedInOut
+        loggedIn: true
       }
     default:
       return state;
   }
 }
 
-function storeData(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    console.warn("something wrong happened", error);
-    return false;
-  }
-}
 
-function localAddProduct (product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    current.qty += product.qty;
-  } else {
-    current = product;
-  }
-  storeData(key, JSON.stringify(current));
-}
-
-function localDeleteProduct(product) {
-  const key = "product_" + product.id;
-  let current = localStorage.getItem(key);
-  if (current !== null) {
-    localStorage.removeItem(key);
-  }
-}
-
-function localDeleteAllProducts() {
-  const productKey = "product_";
-  for (let i = localStorage.length - 1; i >= 0; i--) {
-    const key = localStorage.key(i);
-    if (key.substr(0, productKey.length) === productKey) {
-      localStorage.removeItem(key);
+function incrementQtyRepeatProducts(list, repeatId){
+  let newList = list.forEach((element) => {
+    if(element.id === repeatId){
+      element.qty = element.qty+1;
+      console.log("element.qty: ", element.qty);
     }
-  }
+  })
+
+  return newList;
 }
 
 function storeData(key, value) {

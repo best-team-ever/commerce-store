@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 // import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
-import { deleteFromCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
+import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
 
 import './cart.css';
@@ -44,16 +44,23 @@ class Cart extends Component {
   deleteItem = (productId) => {
     console.log("deleteItem");
     // console.log("thisprops",this.props);
-    this.props.deleteFromCart(productId)
+    this.props.deleteFromCart(productId);
+  };
+
+  deleteCart = () => {
+    this.props.deleteCart();
+  };
+
+  deleteCart = () => {
+    this.props.deleteCart();
   };
 
   updateQty2 = (event, index) => {
-    console.log("updateQty2");
     this.props.updateQty(event, index);
   }
 
   total = (value) => {
-    total = total + value
+    total = total + value;
   }
 
   componentDidMount() {
@@ -70,8 +77,8 @@ class Cart extends Component {
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
     let productsList = [];
-    if(productsOfCart){
-     productsList = productsOfCart.map((product, index) => (
+    if(productsOfCart.length !== 0){
+      productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
           <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
           <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>
@@ -133,8 +140,9 @@ class Cart extends Component {
           </div>
           <div className="cardCoteACote">
             <Link to="/">
-              <button type="button" className="btn btn-primary">Return</button>
+              <button type="button" className="btn btn-secondary">Return</button>
             </Link>
+            <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {
               numberProducts?
                 (
@@ -162,10 +170,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (id) => deleteFromCartHandler(id, dispatch),
+    deleteCart: () => deleteCartHandler(dispatch),
     updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch)
   };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
-
-// export default (Cart);

@@ -1,3 +1,4 @@
+
 import {
   ADD_TO_CART,
   CREATE_ORDER,
@@ -6,17 +7,25 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED} from "./ActionTypes";
+  SIGNED,
+  DELETE_CART
+  } from "./ActionTypes";
 
-export const addToCart = (productsOfCart) => ({
+
+export const addToCart = (newProduct) => ({
   type: ADD_TO_CART,
-  payload: { productsOfCart }
+  payload: { newProduct }
 });
 
 export const deleteFromCartAction = (id) => ({
   type: DELETE_FROM_CART,
   payload: { id }
 });
+
+export const deleteCartAction = () => ({
+  type: DELETE_CART,
+  payload: {}
+})
 
 export const addRepeatProduct = (id) => ({
   type: ADD_REPEAT_PRODUCT,
