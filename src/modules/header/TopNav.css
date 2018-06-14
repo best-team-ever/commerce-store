@@ -232,3 +232,10 @@
 {
 	margin-right: 10px;
 }
+
+.login {
+  padding: 0px;
+  border: none;
+  background-color: none;
+  color: black;
+}

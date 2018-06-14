@@ -1,13 +1,9 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { createShipping } from "../../store/actions/cartAction";
+import { createShipping, getToken } from "../../store/actions/cartAction";
 import { withRouter } from "react-router-dom";
-
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
+import StripeCheckout from "react-stripe-checkout";
 
 import './shipping.css';
 
@@ -74,65 +70,74 @@ class Shipping extends Component{
 
   render(){
     return (
-      <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
-
-        <div>
-          <div className='title'>
+      <div className="ShippingForm">
+        <div className="row">
+          <div className="shipping_contents col-sm-3"></div>
+          <div className="shipping_contents col-sm-6">
             <h1>Validate your shipping information</h1>
-          </div>
-          <div className='shippingForm'>
-            {/*<Form to="/payment" method="POST">*/}
-            <form className="form" onSubmit={this.onSubmit.bind(this)}>
-              <label>
-                <div>
-                  First name:
-                  <input type="text" placeholder="Input your first name" value={this.state.firstName} onChange={this.onFirstnameInputChange.bind(this)}/>
-                </div>
-                <div>
-                  Last name:
-                  <input type="text" placeholder="Input your last name" value={this.state.lastName} onChange={this.onLastnameInputChange.bind(this)}/>
-                </div>
-                <div>
-                  Address:
-                  <input type="text" placeholder="Input your address" value={this.state.address} onChange={this.onAddressInputChange.bind(this)}/>
-                </div>
-                <div>
-                  Post-Code:
-                  <input type="text" placeholder="Input your post code" value={this.state.postCode} onChange={this.onPostcodeInputChange.bind(this)} />
-                </div>
-                <div>
-                  City:
-                  <input type="text" placeholder="Input your city" value={this.state.city} onChange={this.onCityInputChange.bind(this)} />
-                </div>
-              </label>
+            <p>Fill out the form below with your delivery coordinates.</p>
+            <form className="shippingForm" onSubmit={this.onSubmit.bind(this)}>
               <div>
-                <button type="submit">Submit</button>
+                <input type="text"
+                  placeholder="Your first name"
+                  value={this.state.firstName}
+                  onChange={this.onFirstnameInputChange.bind(this)}
+                  className="form_input input_name input_ph"
+                  required="required"
+                  data-error="First Name is required."/>
+                <input type="text"
+                  placeholder="Your last name"
+                  value={this.state.lastName}
+                  onChange={this.onLastnameInputChange.bind(this)}
+                  className="form_input input_name input_ph"
+                  required="required"
+                  data-error="Last Name is required."/>
+                <input type="text"
+                  placeholder="Your address"
+                  value={this.state.address}
+                  onChange={this.onAddressInputChange.bind(this)}
+                  className="form_input input_name input_ph"
+                  required="required"
+                  data-error="Address is required."/>
+                <input type="text"
+                  placeholder="Your post code"
+                  value={this.state.postCode}
+                  onChange={this.onPostcodeInputChange.bind(this)}
+                  className="form_input input_name input_ph" />
+                <input type="text"
+                  placeholder="Your city"
+                  value={this.state.city}
+                  onChange={this.onCityInputChange.bind(this)}
+                  className="form_input input_name input_ph"
+                  required="required"
+                  data-error="City is required."/>
+              </div>
+              <div>
+                <StripeCheckout
+                  token={this.props.dispatch(getToken)}
+                  currency="EUR"
+                  stripeKey={ process.env.REACT_APP_PUBLISHABLE_KEY }
+                >
+                  <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
+                </StripeCheckout>
               </div>
             </form>
-            {/*</Form>*/}
           </div>
+          <div className="shipping_contents col-sm-3"></div>
         </div>
-
-
-
-        <Footer/>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  // productsOfCart: state.cartReducer.productsOfCart
+  paymentStatus: state.cartReducer.paymentStatus
+});
 
 function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createShipping}, dispatch);
   return {...actions, dispatch};
 }
 
-
-export default withRouter(connect(null, mapDispatchToProps)(Shipping));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Shipping));
