@@ -6,7 +6,7 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED_IN,
+  SIGNED,
   DELETE_CART
 } from "../actions/ActionTypes";
 
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         productsOfCart: [ action.payload.newProduct, ...state.productsOfCart ]
       }
     case DELETE_FROM_CART:
-      localDeleteProduct(action.payload.productsOfCart);
+      localDeleteProduct(action.payload.id);
       return {
         ...state,
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
       localDeleteAllProducts();
       return {
         ...state,
-        productsOfCart: initialState.productsOfCart
+        productsOfCart: []
       }
     case ADD_REPEAT_PRODUCT:
       const updatedItems = state.productsOfCart.map(item => {
@@ -71,15 +71,17 @@ export default (state = initialState, action) => {
       })
       console.log("newArray : ", newArray);
       return {
-        ...state, productsOfCart : newArray
+        ...state, productsOfCart : [...newArray]
       }
-    case SIGNED_IN:
+    case SIGNED:
+      console.log("nouvel état de loggedIn", state.loggedIn, " => ", !action.payload.signedInOut);
       return {
         ...state,
-        loggedIn: true
+        loggedIn: !action.payload.signedInOut
       }
     default:
       return state;
+
   }
 }
 
@@ -124,7 +126,7 @@ function localDeleteAllProducts() {
 
 function storeData(key, value) {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, value);
     return true;
   } catch (error) {
     console.warn("something wrong happened", error);
@@ -171,12 +173,9 @@ function localGetProducts(product) {
       const key = localStorage.key(i);
       if (key.substr(0, productKey.length) === productKey) {
         const sValue = localStorage.getItem(key);
-        const oValue = JSON.parse(sValue);
-        console.log(oValue);
-        cart.push(oValue);
+        cart.push(JSON.parse(sValue));
       }
     }
   }
-  console.log(cart);
   return cart;
 }

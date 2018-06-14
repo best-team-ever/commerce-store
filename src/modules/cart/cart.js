@@ -14,6 +14,7 @@ let total = 0;
 class Cart extends Component {
   constructor(props) {
     super(props);
+
     this.return = this.return.bind (this);
     this.validCart = this.validCart.bind (this);
   }
@@ -26,19 +27,23 @@ class Cart extends Component {
   }
 
   return = () => {
-    console.log("return...");
+    window.history.back();
   };
 
   validCart = () => {
     console.log("valid cart");
   };
 
-  increment = () => {
-    console.log("plus +");
-  };
+  increment = (qty, index) => {
+    this.props.updateQty(qty += 1, index)
+   };
 
-  decrement = () => {
-    console.log("moins -");
+  decrement = (qty, index) => {
+    if (qty === 1) {
+      this.deleteItem()
+    } else {
+    this.props.updateQty(qty -= 1, index)
+    }
   };
 
   deleteItem = (productId) => {
@@ -80,23 +85,23 @@ class Cart extends Component {
     if(productsOfCart.length !== 0){
       productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
-          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" width="20%" alt={`${product.title}`}/></td>
+          <td><img src={`${urlImage}${product.image_path}`} className="img-thumbnail" alt={`${product.title}`}/></td>
           <td><a onClick={this.handleProduct.bind(this, `${product.id}`)}>{product.title}</a></td>
           <td>{product.description}</td>
-          <td>{product.min_price}</td>
+          <td className="text-right">{(product.min_price).toFixed(2)}</td>
           <td className="qty">
             <div className="signs">
-              <button onClick={this.increment}>+</button>
-              <button onClick={this.decrement}>-</button>
+              <button onClick={() => this.increment(product.qty, index)}>+</button>
+              <button onClick={() => this.decrement(product.qty, index)}>-</button>
             </div>
             <input type="text" className="qty2" value={product.qty} onChange={(event) => this.updateQty2(event.target.value, index)}>
             </input>
           </td>
-          <td>
+          <td className="text-center">
             <i className="fas fa-trash-alt" onClick={this.deleteItem.bind(this, `${product.id}`)}></i>
           </td>
-          <td>
-            {Math.round(product.min_price*100 * product.qty)/100}&nbsp;€
+          <td className="text-right">
+            {(Math.round(product.min_price*100 * product.qty)/100).toFixed(2)}&nbsp;€
           </td>
         </tr>
       ));
@@ -111,7 +116,7 @@ class Cart extends Component {
           <td></td>
           <td className="qty"></td>
           <td></td>
-          <td>{total}&nbsp;€</td>
+          <td className="text-right">{total.toFixed(2)}&nbsp;€</td>
         </tr>
       );
     }
@@ -124,8 +129,8 @@ class Cart extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Product name</th>
+                  <th>Product</th>
+                  <th>Name</th>
                   <th>Description</th>
                   <th>Unit price</th>
                   <th>Quantity</th>
@@ -139,9 +144,7 @@ class Cart extends Component {
             </table>
           </div>
           <div className="cardCoteACote">
-            <Link to="/">
-              <button type="button" className="btn btn-secondary">Return</button>
-            </Link>
+            <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {
               numberProducts?

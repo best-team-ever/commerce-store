@@ -1,8 +1,30 @@
 import React, { Component } from 'react';
 import './TopNav.css';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import {connect} from "react-redux";
+import { signedHandler } from "../../store/handlers/signedHandlers";
 
-export default class TopNav extends Component {
+class TopNav extends Component {
+  getLoginStatus(){
+    let { loggedIn } = this.props;
+    return {
+      loggedIn: loggedIn
+    }
+  }
+
+  responseGoogle = (response) => {
+    console.log("sur le point de mettre logué dans le state");
+
+    this.props.signed(true);
+  }
+
+  logout = (response) => {
+    console.log("sur le point de mettre délogué dans le state");
+    this.props.signed(false);
+  }
+
   render() {
+    console.log("logué ", this.getLoginStatus().loggedIn);
     return (
       <div className="top_nav">
         <div className="container">
@@ -10,6 +32,7 @@ export default class TopNav extends Component {
             <div className="col-md-6">
               <div className="top_nav_left">Welcome on board!</div>
             </div>
+
             <div className="col-md-6 text-right">
               <div className="top_nav_right">
                 <ul className="top_nav_menu">
@@ -43,8 +66,27 @@ export default class TopNav extends Component {
                       <i className="fa fa-angle-down"></i>
                     </a>
                     <ul className="account_selection">
-                      <li><a href="./"><i className="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+                      <li><a href="./"><i className="fa fa-sign-in" aria-hidden="true"></i>
+                      {
+                        this.getLoginStatus().loggedIn
+                          ? <GoogleLogout
+                            className="login"
+                            buttonText="Logout"
+                            onLogoutSuccess={this.logout}
+                            />
+                          : <GoogleLogin
+                            className="login"
+                            clientId="522866054012-3rk0smi2ss0fqn3irb0onpjj3to9g0e8.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            />
+                      }
+
+
+                      </a></li>
                       <li><a href="./"><i className="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+
                     </ul>
                   </li>
                 </ul>
@@ -56,3 +98,15 @@ export default class TopNav extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  loggedIn: state.cartReducer.loggedIn
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signed: (signedInOut) => signedHandler(signedInOut, dispatch)
+  };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(TopNav);

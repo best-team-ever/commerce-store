@@ -15,7 +15,7 @@ export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_CART = "DELETE_CART";
 export const ADD_REPEAT_PRODUCT = "ADD_REPEAT_PRODUCT";
 export const UPDATE_QTY = "UPDATE_QTY";
-export const SIGNED_IN="SIGNED_IN";
+export const SIGNED="SIGNED";
 
 export const CREATE_SHIPPING = "CREATE_SHIPPING";
 export const CREATE_PAYMENT = "CREATE_PAYMENT";
