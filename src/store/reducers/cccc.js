@@ -5,36 +5,41 @@ import {
   CREATE_SHIPPING,
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
-  UPDATE_QTY, SIGNED_IN
+  UPDATE_QTY,
+  SIGNED_IN,
+  DELETE_CART
 } from "../actions/ActionTypes";
 
 const initialState = {
-  productsOfCart: []
+  productsOfCart: localGetProducts(),
+  loggedIn: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type){
     case ADD_TO_CART:
+      localAddProduct(action.payload.productsOfCart);
       return {
         ...state,
-        productsOfCart: [ action.payload.newProduct, ...state.productsOfCart ]
+        productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     case DELETE_FROM_CART:
-      console.log("reducer");
+      localDeleteProduct(action.payload.productsOfCart);
       return {
         ...state,
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
       }
-    case ADD_REPEAT_PRODUCT:
-      const updatedItems = state.productsOfCart.map(item => {
-        if(item.id === action.payload.id){
-          return { ...item, qty: item.qty+1 }
-        }
-        return item
-      })
+    case DELETE_CART:
+      localDeleteAllProducts();
       return {
         ...state,
-        productsOfCart: [...updatedItems]
+        productsOfCart: initialState.productsOfCart
+      }
+    case ADD_REPEAT_PRODUCT:
+      incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
+      return {
+        ...state,
+        productsOfCart: [...state.productsOfCart]
       }
     case CREATE_SHIPPING:
       return {
@@ -71,6 +76,18 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
+}
+
+
+function incrementQtyRepeatProducts(list, repeatId){
+  let newList = list.forEach((element) => {
+    if(element.id === repeatId){
+      element.qty = element.qty+1;
+      console.log("element.qty: ", element.qty);
+    }
+  })
+
+  return newList;
 }
 
 function storeData(key, value) {

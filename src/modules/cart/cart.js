@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 // import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
-import { deleteFromCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
+import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
 
 import './cart.css';
@@ -46,8 +46,11 @@ class Cart extends Component {
     this.props.deleteFromCart(productId)
   };
 
+  deleteCart = () => {
+    this.props.deleteCart();
+  };
+
   updateQty2 = (event, index) => {
-    console.log("this.getProductsOfCart().productsOfCart: ", this.getProductsOfCart().productsOfCart);
     this.props.updateQty(event, index);
   }
 
@@ -133,6 +136,7 @@ class Cart extends Component {
             <Link to="/">
               <button type="button" className="btn btn-primary">Return</button>
             </Link>
+            <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {
               numberProducts?
                 (
@@ -160,6 +164,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (id) => deleteFromCartHandler(id, dispatch),
+    deleteCart: () => deleteCartHandler(dispatch),
     updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch)
   };
 }
