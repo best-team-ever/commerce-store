@@ -126,12 +126,15 @@ class Shipping extends Component{
                 >
                   <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
                 </StripeCheckout>
-             {*/       <div> /*}
-            {*/          <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button> /*}
-            {*/        </div>/*}
-             {*/     </form>/*}
-            {*/    </div>/*}
-             {*/   <div className="shipping_contents col-sm-3"></div>/*}
+              </div>
+              </form>
+              </div>
+                    {/* <div> */}
+                     {/* <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>
+                  </div>
+                 </form>
+               </div>
+               <div className="shipping_contents col-sm-3"></div> */}
 
               </div>
             </div>
