@@ -6,7 +6,7 @@ import MainNav from '../header/MainNav';
 import HamburgerMenu from '../header/HamburgerMenu';
 import Footer from '../footer/Footer';
 
-class PaymentSuccess extends Component{
+class PaymentResult extends Component{
   render(){
     console.log("paymentSuccess props: ", this.props);
     return (
@@ -27,4 +27,4 @@ class PaymentSuccess extends Component{
   }
 }
 
-export default PaymentSuccess;
+export default PaymentResult;
