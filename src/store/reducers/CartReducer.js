@@ -6,26 +6,34 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED_IN
+  SIGNED_IN,
+  DELETE_CART
 } from "../actions/ActionTypes";
 
 const initialState = {
-  productsOfCart: [],
+  productsOfCart: localGetProducts(),
   loggedIn: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type){
     case ADD_TO_CART:
+      localAddProduct(action.payload.productsOfCart);
       return {
         ...state,
         productsOfCart: [...state.productsOfCart, action.payload.productsOfCart]
       }
     case DELETE_FROM_CART:
-      console.log("reducer");
+      localDeleteProduct(action.payload.productsOfCart);
       return {
         ...state,
         productsOfCart: state.productsOfCart.filter(({id}) => action.payload.id !== id)
+      }
+    case DELETE_CART:
+      localDeleteAllProducts();
+      return {
+        ...state,
+        productsOfCart: initialState.productsOfCart
       }
     case ADD_REPEAT_PRODUCT:
       incrementQtyRepeatProducts(state.productsOfCart, action.payload.id);
@@ -80,4 +88,61 @@ function incrementQtyRepeatProducts(list, repeatId){
   })
 
   return newList;
+}
+
+function storeData(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.warn("something wrong happened", error);
+    return false;
+  }
+}
+
+function localAddProduct (product) {
+  const key = "product_" + product.id;
+  let current = localStorage.getItem(key);
+  if (current !== null) {
+    current.qty += product.qty;
+  } else {
+    current = product;
+  }
+  storeData(key, JSON.stringify(current));
+}
+
+function localDeleteProduct(product) {
+  const key = "product_" + product.id;
+  let current = localStorage.getItem(key);
+  if (current !== null) {
+    localStorage.removeItem(key);
+  }
+}
+
+function localDeleteAllProducts() {
+  const productKey = "product_";
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key.substr(0, productKey.length) === productKey) {
+      localStorage.removeItem(key);
+    }
+  }
+}
+
+function localGetProducts(product) {
+  const productKey = "product_";
+  let cart = [];
+  if (localStorage !== undefined) {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.substr(0, productKey.length) === productKey) {
+        const sValue = localStorage.getItem(key);
+        const oValue = JSON.parse(sValue);
+        console.log(oValue);
+        cart.push(oValue);
+      }
+    }
+  }
+  console.log(cart);
+  return cart;
 }

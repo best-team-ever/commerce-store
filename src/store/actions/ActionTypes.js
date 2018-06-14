@@ -12,6 +12,7 @@ export const FETCH_PRODUCT_FAILURE = "FETCH_PRODUCT_FAILURE";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
+export const DELETE_CART = "DELETE_CART";
 export const ADD_REPEAT_PRODUCT = "ADD_REPEAT_PRODUCT";
 export const UPDATE_QTY = "UPDATE_QTY";
 export const SIGNED_IN="SIGNED_IN";
