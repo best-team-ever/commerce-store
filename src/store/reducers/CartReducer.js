@@ -6,7 +6,7 @@ import {
   DELETE_FROM_CART,
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
-  SIGNED_IN,
+  SIGNED,
   DELETE_CART
 } from "../actions/ActionTypes";
 
@@ -73,10 +73,11 @@ export default (state = initialState, action) => {
       return {
         ...state, productsOfCart : newArray
       }
-    case SIGNED_IN:
+    case SIGNED:
+      console.log("nouvel état de loggedIn", state.loggedIn, " => ", !action.payload.signedInOut);
       return {
         ...state,
-        loggedIn: true
+        loggedIn: !action.payload.signedInOut
       }
     default:
       return state;
