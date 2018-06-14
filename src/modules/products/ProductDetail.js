@@ -135,7 +135,7 @@ class ProductDetail extends Component{
     					<div className="original_price">{product.crossed_price > 0 ? `${product.crossed_price} €` : ""}</div>
     					<div className="product_price">{`${product.min_price} €`}</div>
     					<ul className="star_rating">{this.rating(product.rating)}</ul> <span>{product.rating}</span>
-              <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+              <div className="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                 <a onClick={this.handleClick}>
     						  <div className="red_button product_add_to_cart_button">add to cart</div>
                 </a>

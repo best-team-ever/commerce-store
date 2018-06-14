@@ -43,7 +43,12 @@ class Cart extends Component {
 
   deleteItem = (productId) => {
     console.log("deleteItem");
-    this.props.deleteFromCart(productId)
+    // console.log("thisprops",this.props);
+    this.props.deleteFromCart(productId);
+  };
+
+  deleteCart = () => {
+    this.props.deleteCart();
   };
 
   deleteCart = () => {
@@ -55,11 +60,11 @@ class Cart extends Component {
   }
 
   total = (value) => {
-    total = total + value
+    total = total + value;
   }
 
   componentDidMount() {
-    console.log("didMount");
+    console.log("");
   }
 
   handleProduct(productId){
@@ -67,6 +72,7 @@ class Cart extends Component {
   }
 
   render(){
+    console.log("props Cart", this.props);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
@@ -134,7 +140,7 @@ class Cart extends Component {
           </div>
           <div className="cardCoteACote">
             <Link to="/">
-              <button type="button" className="btn btn-primary">Return</button>
+              <button type="button" className="btn btn-secondary">Return</button>
             </Link>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {
@@ -170,5 +176,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));
-
-// export default (Cart);

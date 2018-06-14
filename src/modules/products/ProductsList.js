@@ -130,7 +130,7 @@ class ProductsList extends Component{
         }
 
         return (
-          <div key={product.id} className="product-item col-sm-3">
+          <div key={product.id} className="product-item">
             <div className="product discount product_filter">
               <Link to={`/products/${product.id}`}>
                 <div className="product_image">
@@ -142,7 +142,7 @@ class ProductsList extends Component{
                   <h6 className="product_name">
                     {product.title}
                   </h6>
-                  <div className="product_price">${product.min_price} €{crossedPrice}</div>
+                  <div className="product_price">{product.min_price} €{crossedPrice}</div>
                 </div>
               </Link>
             </div>
@@ -155,9 +155,11 @@ class ProductsList extends Component{
     }
 
     return(
-      <div className="product-grid">
-        <div className="row">
-          {list}
+      <div className="container">
+        <div className="product-grid">
+          <div className="row">
+            {list}
+          </div>
         </div>
       </div>
     )
