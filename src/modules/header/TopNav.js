@@ -16,7 +16,6 @@ class TopNav extends Component {
     }
   }
 
-
   getLoginStatus(){
     let { loggedIn } = this.props;
     return {
@@ -52,7 +51,7 @@ class TopNav extends Component {
           <div className="row">
             <div className="col-md-6">
               <div className="top_nav_left">
-                <img className="logonavbar" src="/images/dktlogo.png"/>
+                <img className="logonavbar" src="/images/dktlogo.png" alt="dktLogo"/>
               </div>
             </div>
 
@@ -88,7 +87,8 @@ class TopNav extends Component {
                     {
                       this.getLoginStatus().loggedIn
 
-                      ? <p className="myAccountPicture" > <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
+                      ? <p className="myAccountPicture" >
+                          <img className="profilepic" src={this.state.pic} alt="statePic"/>{this.state.name}&nbsp;&nbsp;
                           <i className="fa fa-angle-down"></i>
                         </p>
                       : <p className="myAccount">&nbsp;My Account&nbsp;&nbsp;
