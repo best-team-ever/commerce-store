@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
+// import StripeCheckout from "react-stripe-checkout";
 
+// import { createPayment, getToken } from "../../store/actions/cartAction";
 import { createPayment } from "../../store/actions/cartAction";
 
 import './payment.css';
@@ -68,6 +70,35 @@ class Payment extends Component{
     })
   }
 
+  // getProductsOfCart(){
+  //   let { productsOfCart } = this.props;
+  //   return {
+  //     productsOfCart: productsOfCart
+  //   }
+  // }
+  //
+  // onToken = token => {
+  //   fetch("/charge", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       stripeData: token,
+  //       products: this.getProductsOfCart().productsOfCart
+  //     }),
+  //     headers: { "Content-Type": "application/json" }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       if (data.status === "succeeded") {
+  //         console.log(data);
+  //         // dispatch a success
+  //       } else {
+  //         console.warn(data);
+  //         // dispatch an error
+  //       }
+  //     });
+  // };
+
+
   render(){
     return (
       <div className="Payment">
@@ -131,6 +162,13 @@ class Payment extends Component{
                 </div>
               </div>
               <div>
+                {/*<StripeCheckout*/}
+                  {/*token={this.props.dispatch(getToken)}*/}
+                  {/*currency="EUR"*/}
+                  {/*stripeKey={ process.env.REACT_APP_PUBLISHABLE_KEY }*/}
+                {/*>*/}
+                  {/*<button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>*/}
+                {/*</StripeCheckout>*/}
                 <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>
               </div>
             </form>
@@ -142,9 +180,15 @@ class Payment extends Component{
   }
 }
 
+// const mapStateToProps = (state) => ({
+//   paymentStatus: state.cartReducer.paymentStatus
+// });
+
 function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createPayment}, dispatch);
   return {...actions, dispatch};
 }
 
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Payment));
 export default withRouter(connect(null, mapDispatchToProps)(Payment));
+

@@ -19,10 +19,16 @@ import ProductDetail from "./modules/products/ProductDetail";
 import Shipping from "./modules/shipping/Shipping";
 import Payment from "./modules/payment/Payment";
 import Confirmation from "./modules/payment/Confirmation";
-import PaymentSuccess from "./modules/payment/PaymentSuccess";
+import PaymentResult from "./modules/payment/PaymentResult";
+import Contact from "./modules/contact/Contact";
 import CategoriesList from "./modules/categories/CategoriesList";
 import { Provider } from "react-redux";
 import store from './store/reducers/stores';
+
+// window.addEventListener('storage', function(e) {
+//  console.log('Woohoo, someone changed my cart localstorage va another tab/window!');
+// });
+
 
 class App extends Component {
   render() {

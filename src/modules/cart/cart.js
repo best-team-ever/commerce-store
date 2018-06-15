@@ -48,10 +48,6 @@ class Cart extends Component {
     this.props.deleteCart();
   };
 
-  deleteCart = () => {
-    this.props.deleteCart();
-  };
-
   updateQty2 = (event, index) => {
     this.props.updateQty(event, index);
   }
@@ -69,7 +65,6 @@ class Cart extends Component {
   }
 
   render(){
-    console.log("props Cart", this.props);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
@@ -137,13 +132,12 @@ class Cart extends Component {
           <div className="cardCoteACote">
             <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
-            {
-              numberProducts?
-                (
-                  <Link to="/shipping">
+            {numberProducts
+              ? (<Link to="/shipping">
                     <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
                   </Link>
-                ):null
+                )
+              : null
             }
           </div>
         </div>
