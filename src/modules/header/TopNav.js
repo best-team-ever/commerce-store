@@ -16,6 +16,8 @@ class TopNav extends Component {
     }
   }
 
+
+
   getLoginStatus(){
     let { loggedIn } = this.props;
     return {
@@ -35,6 +37,7 @@ class TopNav extends Component {
     console.log(pic);
 
     this.props.signed(true);
+    // window.location.reload();
   }
 
   logout = (response) => {
@@ -130,6 +133,8 @@ class TopNav extends Component {
     );
   }
 }
+
+
 
 const mapStateToProps = (state) => ({
   loggedIn: state.cartReducer.loggedIn
