@@ -51,7 +51,9 @@ class TopNav extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <div className="top_nav_left">Welcome on board!</div>
+              <div className="top_nav_left">
+                <img className="logonavbar" src="/images/dktlogo.png"/>
+              </div>
             </div>
 
             <div className="col-md-6 text-right">
@@ -85,12 +87,14 @@ class TopNav extends Component {
                     <a href="./">
                     {
                       this.getLoginStatus().loggedIn
-                      ? <p> <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
+
+                      ? <p className="myAccountPicture" > <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
                           <i className="fa fa-angle-down"></i>
                         </p>
-                      : <p >My Account&nbsp;&nbsp;
+                      : <p className="myAccount">&nbsp;My Account&nbsp;&nbsp;
                           <i className="fa fa-angle-down"></i>
                         </p>
+
                     }
                     </a>
                     <ul className="account_selection">
@@ -113,7 +117,7 @@ class TopNav extends Component {
 
 
                       </a></li>
-                      <li><a href="./"><i className="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+                      <li><a href="/contact"><i className="fas fa-envelope" aria-hidden="true"></i>Contact Us</a></li>
 
                     </ul>
                   </li>
