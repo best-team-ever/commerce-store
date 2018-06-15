@@ -59,7 +59,7 @@ export default (state = initialState, action) => {
     case CREATE_ORDER:
       return {
         ...state,
-        order: [...state.order, action.payload.order]
+        amountTotal: action.payload.amountTotal
       }
     case UPDATE_QTY:
       const newArray = state.productsOfCart.map((value, indexMap) => {

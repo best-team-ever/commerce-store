@@ -8,7 +8,7 @@ import {
   ADD_REPEAT_PRODUCT,
   UPDATE_QTY,
   SIGNED,
-  DELETE_CART, CHECKOUT_BEGIN, CHECKOUT_SUCCESS, CHECKOUT_FAILURE
+  DELETE_CART
 } from "./ActionTypes";
 
 export const addToCart = (newProduct) => ({
@@ -41,9 +41,9 @@ export const createPayment = (payment) => ({
   payload: { payment }
 })
 
-export const createOrder = (order) => ({
+export const createOrder = (amountTotal) => ({
   type: CREATE_ORDER,
-  payload: { order }
+  payload: { amountTotal }
 });
 
 export const updateQtyAction = (qty, index) => ({
@@ -56,43 +56,45 @@ export const signedAction = (signedInOut) => ({
   payload: { signedInOut }
 });
 
-/*******************Checkout action begin*********************/
-export const getTokenBegin = () => ({
-  type: CHECKOUT_BEGIN
-});
-
-export const getTokenSuccess = (paymentStatus) => ({
-  type: CHECKOUT_SUCCESS,
-  payload: { paymentStatus }
-});
-
-export const getTokenFailure = (error) => ({
-  type: CHECKOUT_FAILURE,
-  payload: { error }
-})
-
-export const getToken = (token) => {
-  return dispatch => {
-    dispatch(getTokenBegin());
-    return fetch("/charge", {
-      method: "POST",
-      body: JSON.stringify(token),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(json => {
-        dispatch(getTokenSuccess(json));
-        return json.paymentStatus;
-      })
-      .catch(error => dispatch(getTokenFailure(error)));
-  }
-}
-
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
-/*******************Checkout action fin*********************/
+// /*******************Checkout action begin*********************/
+// export const getTokenBegin = () => ({
+//   type: CHECKOUT_BEGIN
+// });
+//
+// export const getTokenSuccess = (paymentStatus) => ({
+//   type: CHECKOUT_SUCCESS,
+//   payload: { paymentStatus }
+// });
+//
+// export const getTokenFailure = (error) => ({
+//   type: CHECKOUT_FAILURE,
+//   payload: { error }
+// })
+//
+// export const getToken = (token) => {
+//   return dispatch => {
+//     dispatch(getTokenBegin());
+//     return fetch("/charge", {
+//       method: "POST",
+//       body: JSON.stringify({
+//         stripeData: token,
+//       }),
+//       headers: { "Content-Type": "application/json" }
+//     })
+//       .then(handleErrors)
+//       .then(response => response.json())
+//       .then(json => {
+//         dispatch(getTokenSuccess(json));
+//         return json.paymentStatus;
+//       })
+//       .catch(error => dispatch(getTokenFailure(error)));
+//   }
+// }
+//
+// function handleErrors(response) {
+//   if (!response.ok) {
+//     throw Error(response.statusText);
+//   }
+//   return response;
+// }
+// /*******************Checkout action fin*********************/
