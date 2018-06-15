@@ -245,3 +245,11 @@
   height:50px;
   border-radius: 50%;
 }
+
+.myAccount {
+  padding-top: 15px;
+}
+
+.myAccountPicture {
+  height: 200px;
+}
