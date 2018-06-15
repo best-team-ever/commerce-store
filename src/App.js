@@ -40,6 +40,7 @@ class App extends Component {
 
             <Switch>
               <Route exact path="/" component={CategoriesList}/>
+              <Route exact path="/categories" component={CategoriesList}/>
               <Route path="/categories/:id/products" component={ProductsList}></Route>
               <Route path="/products/:id" component={ProductDetail}/>
               <Route path="/cart" component={Cart}/>
