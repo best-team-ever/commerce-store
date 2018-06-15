@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchProductDetail } from "../../store/actions/productDetailAction";
 import { addToCart, addRepeatProduct } from "../../store/actions/cartAction";
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
 
 import './ProductDetail.css';
 
@@ -15,6 +15,10 @@ class ProductDetail extends Component{
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
+
+  returnToCategory = () => {
+    window.history.back();
+  };
 
   getProductsOfCart(){
     let { productsOfCart } = this.props;
@@ -101,9 +105,9 @@ class ProductDetail extends Component{
     			<div className="col">
     				<div className="breadcrumbs d-flex flex-row align-items-center">
     					<ul>
-    						<li><a href="/">Home</a></li>
-    						<li><a href="/"><i className="fa fa-angle-right" aria-hidden="true"></i>%NAME_OF_CATEGORY%</a></li>
-    						<li className="active"><a href="./"><i className="fa fa-angle-right" aria-hidden="true"></i>Single Product</a></li>
+    						<li><Link to="/">Home</Link></li>
+    						<li><i className="fa fa-angle-right" aria-hidden="true"></i><a onClick={this.returnToCategory}>Category</a></li>
+    						<li className="active"><i className="fa fa-angle-right" aria-hidden="true"></i>Single Product</li>
     					</ul>
     				</div>
     			</div>
@@ -117,7 +121,7 @@ class ProductDetail extends Component{
     						</div>
     						<div className="col-lg-9 image_col order-lg-2 order-1">
     							<div className="single_product_image">
-                    <img src={`${urlImage}${product.image_path}`} alt={product.title} />
+                    <img src={product.image_path ? `${urlImage}${product.image_path}` : ""} alt={product.title} />
     							</div>
     						</div>
     					</div>

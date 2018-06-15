@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./plugins/font-awesome-4.7.0/css/font-awesome.min.css";
 import "./plugins/jquery-ui-1.12.1.custom/jquery-ui.css";
 //import './css/main_styles.css';
-import './css/responsive.css';
-import './index.css';
+// import './css/responsive.css';
+// import './index.css';
 import './App.css';
 
 import TopNav from './modules/header/TopNav';
@@ -54,7 +54,6 @@ class App extends Component {
               <Route path="/payment" component={Payment}/>
               <Route path="/confirmation" component={Confirmation}/>
               <Route path="/contact" component={Contact}/>
-
               {/* <Route path="/paymentSuccess" component={PaymentSuccess}/> */}
             </Switch>
 

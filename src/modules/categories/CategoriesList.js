@@ -63,7 +63,7 @@ class CategoriesList extends Component{
                 <div className="product_sorting_container product_sorting_container_top">
                   <div className="pages d-flex flex-row align-items-center">
                     <div className="page_current">
-                      <span>{first}</span>
+                      <span>{(first-1)/nbByPage+1}</span>
                       <ul className="page_selection">{pages}</ul>
                     </div>
                     <div className="page_total"><span>of</span> {result.numPages}</div>
