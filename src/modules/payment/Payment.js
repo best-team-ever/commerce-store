@@ -109,7 +109,7 @@ class Payment extends Component{
           this.props.history.push("/paymentResult");
         } else {
           console.warn(data);
-          // dispatch an error
+          this.props.history.push("/paymentFailed");
         }
       });
   };

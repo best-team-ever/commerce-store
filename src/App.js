@@ -20,6 +20,7 @@ import Shipping from "./modules/shipping/Shipping";
 import Payment from "./modules/payment/Payment";
 import Confirmation from "./modules/payment/Confirmation";
 import PaymentResult from "./modules/payment/PaymentResult";
+import PaymentFailed from "./modules/payment/PaymentFailed";
 import Contact from "./modules/contact/Contact";
 import CategoriesList from "./modules/categories/CategoriesList";
 import { Provider } from "react-redux";
@@ -55,6 +56,7 @@ class App extends Component {
               <Route path="/confirmation" component={Confirmation}/>
               <Route path="/contact" component={Contact}/>
               <Route path="/paymentResult" component={PaymentResult}/>
+              <Route path="/paymentFailed" component={PaymentFailed}/>
             </Switch>
 
             <Footer/>

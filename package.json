@@ -22,9 +22,11 @@
     "stripe": "^6.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "prestart": "npm run build",
+    "start": "node server.js",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8000"
