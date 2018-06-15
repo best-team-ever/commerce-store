@@ -14,6 +14,7 @@ class ProductDetail extends Component{
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleGoToProductDetail = this.handleGoToProductDetail.bind(this);
   }
 
   getProductsOfCart(){
@@ -68,6 +69,10 @@ class ProductDetail extends Component{
     this.props.history.push("/cart");
   }
 
+  handleGoToProductDetail(){
+    this.props.history.push(`/products/${this.getProductDetail().product.id}`);
+  }
+
   componentDidMount(){
     this.props.dispatch(fetchProductDetail(this.props.match.params.id));
   }
@@ -103,7 +108,7 @@ class ProductDetail extends Component{
     					<ul>
     						<li><a href="/">Home</a></li>
     						<li><a href="/"><i className="fa fa-angle-right" aria-hidden="true"></i>%NAME_OF_CATEGORY%</a></li>
-    						<li className="active"><a href="./"><i className="fa fa-angle-right" aria-hidden="true"></i>Single Product</a></li>
+    						<li className="active"><a onClick={this.handleGoToProductDetail}><i className="fa fa-angle-right" aria-hidden="true"></i>{product.title}</a></li>
     					</ul>
     				</div>
     			</div>
