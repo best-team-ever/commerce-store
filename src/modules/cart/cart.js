@@ -48,10 +48,6 @@ class Cart extends Component {
     this.props.deleteCart();
   };
 
-  deleteCart = () => {
-    this.props.deleteCart();
-  };
-
   updateQty2 = (event, index) => {
     this.props.updateQty(event, index);
   }

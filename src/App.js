@@ -25,6 +25,11 @@ import CategoriesList from "./modules/categories/CategoriesList";
 import { Provider } from "react-redux";
 import store from './store/reducers/stores';
 
+// window.addEventListener('storage', function(e) {
+//  console.log('Woohoo, someone changed my cart localstorage va another tab/window!');
+// });
+
+
 class App extends Component {
   render() {
     return (
