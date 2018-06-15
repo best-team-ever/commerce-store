@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 // import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
 
-// import './cart.css';
 import '../products/ProductsList.css';
+import './contact.css';
 
 const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
@@ -22,7 +22,7 @@ class Contact extends Component {
               <div className="product-item">
                 <div className="product discount product_filter">
                     <div className="product_image">
-                      <img src="./Yuanqin.png"  class="img-thumbnail"/>
+                      <img src="./images/Yuanqin.png"  class="img-thumbnail"/>
                     </div>
                     <div className="favorite favorite_left"></div>
 
@@ -41,7 +41,7 @@ class Contact extends Component {
               <div className="product-item">
                 <div className="product discount product_filter">
                     <div className="product_image">
-                      <img src="./Mat.png"  class="img-thumbnail"/>
+                      <img src="./images/Mat.png"  class="img-thumbnail"/>
                     </div>
                     <div className="favorite favorite_left"></div>
 
@@ -60,7 +60,7 @@ class Contact extends Component {
               <div className="product-item">
                 <div className="product discount product_filter">
                     <div className="product_image">
-                      <img src="./JPhi.png"  class="img-thumbnail"/>
+                      <img src="./images/JPhi.png"  class="img-thumbnail"/>
                     </div>
                     <div className="favorite favorite_left"></div>
 
@@ -78,8 +78,8 @@ class Contact extends Component {
 
               <div className="product-item">
                 <div className="product discount product_filter">
-                    <div className="product_image">
-                      <img src="./Oliv.png" class="img-thumbnail"/>
+                    <div className="product_image2">
+                      <img src="./images/Oliv.png" class="img-thumbnail"/>
                     </div>
                     <div className="favorite favorite_left"></div>
 
