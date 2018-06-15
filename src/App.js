@@ -53,7 +53,7 @@ class App extends Component {
               <Route path="/shipping" component={Shipping}/>
               <Route path="/payment" component={Payment}/>
               <Route path="/confirmation" component={Confirmation}/>
-              <Route path="/paymentSuccess" component={PaymentSuccess}/>
+              {/* <Route path="/paymentSuccess" component={PaymentSuccess}/> */}
             </Switch>
 
             <Footer/>
