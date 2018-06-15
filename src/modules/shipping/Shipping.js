@@ -124,7 +124,7 @@ class Shipping extends Component{
                   currency="EUR"
                   stripeKey={ process.env.REACT_APP_PUBLISHABLE_KEY }
                 >
-                  <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
+                  <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Confirm information & pay</button>
                 </StripeCheckout>
               </div>
               </form>
