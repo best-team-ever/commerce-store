@@ -1,0 +1,58 @@
+.product-item:hover .add_to_cart_button
+{
+	visibility: visible;
+	opacity: 1;
+}
+
+.product-item:hover .favorite
+{
+	visibility: visible;
+	opacity: 1;
+}
+
+.product-item
+{
+	width: 25%;
+	height: 380px;
+	cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.product-item::after
+{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -1px;
+	width: calc(100% + 1px);
+	height: 100%;
+	pointer-events: none;
+	content: '';
+	border: solid 2px rgba(235,235,235,0);
+	border-radius: 3px;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.product-item:hover::after
+{
+	box-shadow: 0 25px 29px rgba(63, 78, 100, 0.15);
+	border: solid 2px rgba(235,235,235,1);
+}
+
+
+.product_image2
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+	width: 80%;
+}
+
+.product_image2 img
+{
+	width: 100%;
+}

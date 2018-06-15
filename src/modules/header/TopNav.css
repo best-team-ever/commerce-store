@@ -241,7 +241,32 @@
 }
 
 .profilepic {
-  width:50px;
-  height:50px;
+  /* display: flex;
+  /* align-items: center; */
+  margin-top: 2px;
+  width:45px;
+  height:45px;
   border-radius: 50%;
 }
+
+
+.myAccount {
+  padding-top: 15px;
+}
+
+.myAccountPicture {
+  height: 200px;
+}
+
+.accountcenter {
+  display: flex;
+  text-align: center;
+}
+
+.logonavbar {
+  width: 200px;
+  height: 50px;
+  padding-bottom: 3px;
+  padding-top: 2px;
+}
+

@@ -27,7 +27,7 @@ class MainNav extends Component {
   						<nav className="navbar">
   							<ul className="navbar_menu">
   								<li><Link to="/">home</Link></li>
-  								<li><Link to="./contact">contact</Link></li>
+  								<li><Link to="/contact">contact</Link></li>
   							</ul>
   							<ul className="navbar_user">
   								<li><Link to="/"><i className="fa fa-search" aria-hidden="true"></i></Link></li>
