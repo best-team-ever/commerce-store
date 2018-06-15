@@ -4,7 +4,19 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {connect} from "react-redux";
 import { signedHandler } from "../../store/handlers/signedHandlers";
 
+// const family = "";
+
 class TopNav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      pic: "",
+
+    }
+  }
+
+
   getLoginStatus(){
     let { loggedIn } = this.props;
     return {
@@ -12,8 +24,16 @@ class TopNav extends Component {
     }
   }
 
-  responseGoogle = (response) => {
-    console.log("sur le point de mettre logué dans le state");
+  responseGoogle = (googleUser) => {
+    const familyName = googleUser.profileObj.familyName;
+    // family = googleUser.profileObj.familyName;
+    const name =googleUser.profileObj.name;
+    const pic =googleUser.profileObj.imageUrl;
+    this.setState({pic: pic})
+    this.setState({name: name})
+    console.log(familyName);
+    console.log(name);
+    console.log(pic);
 
     this.props.signed(true);
   }
@@ -23,6 +43,7 @@ class TopNav extends Component {
     this.props.signed(false);
   }
 
+
   render() {
     console.log("logué ", this.getLoginStatus().loggedIn);
     return (
@@ -30,7 +51,9 @@ class TopNav extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <div className="top_nav_left">Welcome on board!</div>
+              <div className="top_nav_left">
+                <img className="logonavbar" src="/images/dktlogo.png"/>
+              </div>
             </div>
 
             <div className="col-md-6 text-right">
@@ -62,8 +85,17 @@ class TopNav extends Component {
                   </li> */}
                   <li className="account">
                     <a href="./">
-                      My Account
-                      <i className="fa fa-angle-down"></i>
+                    {
+                      this.getLoginStatus().loggedIn
+
+                      ? <p className="myAccountPicture" > <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
+                          <i className="fa fa-angle-down"></i>
+                        </p>
+                      : <p className="myAccount">&nbsp;My Account&nbsp;&nbsp;
+                          <i className="fa fa-angle-down"></i>
+                        </p>
+
+                    }
                     </a>
                     <ul className="account_selection">
                       <li><a href="./"><i className="fa fa-sign-in" aria-hidden="true"></i>
@@ -85,7 +117,7 @@ class TopNav extends Component {
 
 
                       </a></li>
-                      <li><a href="./"><i className="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+                      <li><a href="/contact"><i className="fas fa-envelope" aria-hidden="true"></i>Contact Us</a></li>
 
                     </ul>
                   </li>

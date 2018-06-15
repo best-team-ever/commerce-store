@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { createShipping, getToken } from "../../store/actions/cartAction";
-import { withRouter } from "react-router-dom";
-import StripeCheckout from "react-stripe-checkout";
-
 import './shipping.css';
+import { createShipping } from "../../store/actions/cartAction";
+import { withRouter } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+import { signedHandler } from "../../store/handlers/signedHandlers";
 
 class Shipping extends Component{
   constructor(props){
@@ -68,9 +68,20 @@ class Shipping extends Component{
     });
   }
 
+  responseGoogle = (response) => {
+    this.props.signed(true);
+  }
+
+  getAmountTotal = () => {
+    let { amountTotal } = this.props;
+    return {
+      amountTotal: amountTotal
+    }
+  }
+
   render(){
-    return (
-      <div className="ShippingForm">
+    return (this.props.loggedIn
+           ? (<div className="ShippingForm">
         <div className="row">
           <div className="shipping_contents col-sm-3"></div>
           <div className="shipping_contents col-sm-6">
@@ -113,31 +124,62 @@ class Shipping extends Component{
                   data-error="City is required."/>
               </div>
               <div>
-                <StripeCheckout
-                  token={this.props.dispatch(getToken)}
-                  currency="EUR"
-                  stripeKey={ process.env.REACT_APP_PUBLISHABLE_KEY }
-                >
-                  <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
-                </StripeCheckout>
+                {/*<StripeCheckout*/}
+                  {/*token={this.props.dispatch(getToken)}*/}
+                  {/*amount={parseInt(this.getAmountTotal().amountTotal)}*/}
+                  {/*currency="EUR"*/}
+                  {/*stripeKey="pk_test_EiYAByQZ4UB8TSQcF2QqI2tN"*/}
+                {/*>*/}
+                <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
+                {/*</StripeCheckout>*/}
               </div>
-            </form>
-          </div>
-          <div className="shipping_contents col-sm-3"></div>
-        </div>
-      </div>
+              </form>
+              </div>
+                    {/* <div> */}
+                     {/* <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Submit</button>
+                  </div>
+                 </form>
+               </div>
+               <div className="shipping_contents col-sm-3"></div> */}
+
+              </div>
+            </div>
+            )
+          : (
+            <div className="text-center">
+              <img src="./logoGoogle.png" width="72" height="72" alt="sign in"/>
+                <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <GoogleLogin
+                className="btn btn-primary"
+                clientId="522866054012-3rk0smi2ss0fqn3irb0onpjj3to9g0e8.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+                />
+
+                <p className="mt-5 mb-3 text-muted">© 2018</p>
+            </div>
+            )
+
     )
   }
 }
 
+
 const mapStateToProps = (state) => ({
-  // productsOfCart: state.cartReducer.productsOfCart
-  paymentStatus: state.cartReducer.paymentStatus
-});
+  loggedIn: state.cartReducer.loggedIn,
+  paymentStatus: state.cartReducer.paymentStatus,
+  amountTotal: state.cartReducer.amountTotal
+})
+
 
 function mapDispatchToProps  (dispatch) {
   let actions = bindActionCreators({createShipping}, dispatch);
-  return {...actions, dispatch};
+  return {
+    ...actions,
+    dispatch,
+    signed: (signedInOut) => signedHandler(signedInOut, dispatch)
+  };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Shipping));

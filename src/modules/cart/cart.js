@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { createOrder } from "../../store/actions/cartAction";
 import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
-
 
 import './cart.css';
 
@@ -10,12 +11,6 @@ const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-
-    this.return = this.return.bind (this);
-    this.validCart = this.validCart.bind (this);
-  }
 
   getProductsOfCart(){
     let { productsOfCart } = this.props;
@@ -28,12 +23,15 @@ class Cart extends Component {
     window.history.back();
   };
 
-  validCart = () => {
-    console.log("valid cart");
+  validCart = (amountTotal) => {
+    this.props.createOrder({
+      amountTotal: amountTotal
+    });
+    this.props.history.push("/shipping");
   };
 
   increment = (qty, index) => {
-    const qtyInt = parseInt(qty);
+    const qtyInt = parseInt(qty, 10);
     this.props.updateQty(qtyInt + 1, index)
    };
 
@@ -41,19 +39,14 @@ class Cart extends Component {
     if (qty === 1) {
       this.deleteItem(productId)
     } else {
-    const qtyInt = parseInt(qty);
-    this.props.updateQty(qtyInt - 1, index)
+      const qtyInt = parseInt(qty, 10);
+      this.props.updateQty(qtyInt - 1, index)
     }
   };
 
   deleteItem = (productId) => {
     console.log("deleteItem");
-    // console.log("thisprops",this.props);
     this.props.deleteFromCart(productId);
-  };
-
-  deleteCart = () => {
-    this.props.deleteCart();
   };
 
   deleteCart = () => {
@@ -81,6 +74,7 @@ class Cart extends Component {
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
     let productsList = [];
+    let total;
     if(productsOfCart.length !== 0){
       productsList = productsOfCart.map((product, index) => (
         <tr key={index}>
@@ -104,7 +98,7 @@ class Cart extends Component {
           </td>
         </tr>
       ));
-      const total = productsOfCart
+      total = productsOfCart
         .map(product => (Math.round(product.min_price*100 * product.qty)/100))
         .reduce((total, value) => (total + value));
       productsList.push(
@@ -115,11 +109,10 @@ class Cart extends Component {
           <td></td>
           <td className="qty"></td>
           <td></td>
-          <td className="text-right">{total.toFixed(2)}&nbsp;€</td>
+          <td className="text-right" on>{total.toFixed(2)}&nbsp;€</td>
         </tr>
       );
     }
-
 
     return (
       <div className="card_container">
@@ -145,13 +138,11 @@ class Cart extends Component {
           <div className="cardCoteACote">
             <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
-            {
-              numberProducts?
-                (
-                  <Link to="/shipping">
-                    <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
-                  </Link>
-                ):null
+            {numberProducts
+              ? (
+                  <button type="button" className="btn btn-primary" onClick={this.validCart.bind(this, `${total}`)}>Valid</button>
+              )
+              : null
             }
           </div>
         </div>
@@ -165,15 +156,14 @@ const mapStateToProps = (state) => ({
   productsOfCart: state.cartReducer.productsOfCart
 })
 
-// const mapDispatchToProps = (dispatch) => {
-//   bindActionCreators({ deleteFromCart, updateQty }, dispatch)
-// };
-
 const mapDispatchToProps = (dispatch) => {
+  let actions = bindActionCreators({ createOrder }, dispatch);
   return {
     deleteFromCart: (id) => deleteFromCartHandler(id, dispatch),
     deleteCart: () => deleteCartHandler(dispatch),
-    updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch)
+    updateQty: (qty, index) => updateQtyHandlers(qty, index, dispatch),
+    ...actions,
+    dispatch
   };
 }
 
