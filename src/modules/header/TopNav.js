@@ -91,7 +91,7 @@ class TopNav extends Component {
                       ? <p className="myAccountPicture" > <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
                           <i className="fa fa-angle-down"></i>
                         </p>
-                      : <p className="myAccount">My Account&nbsp;&nbsp;
+                      : <p className="myAccount">&nbsp;My Account&nbsp;&nbsp;
                           <i className="fa fa-angle-down"></i>
                         </p>
 
@@ -117,7 +117,7 @@ class TopNav extends Component {
 
 
                       </a></li>
-                      <li><a href="./"><i className="fas fa-envelope" aria-hidden="true"></i>Contact Us</a></li>
+                      <li><a href="/contact"><i className="fas fa-envelope" aria-hidden="true"></i>Contact Us</a></li>
 
                     </ul>
                   </li>
