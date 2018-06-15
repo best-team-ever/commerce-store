@@ -136,7 +136,7 @@ class Cart extends Component {
             </table>
           </div>
           <div className="cardCoteACote">
-            <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
+            <button type="button" className="btn btn-secondary" onClick={this.return}>Go back to purchases</button>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
             {numberProducts
               ? (

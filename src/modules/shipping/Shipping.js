@@ -124,6 +124,7 @@ class Shipping extends Component{
                   data-error="City is required."/>
               </div>
               <div>
+
                 {/*<StripeCheckout*/}
                   {/*token={this.props.dispatch(getToken)}*/}
                   {/*amount={parseInt(this.getAmountTotal().amountTotal)}*/}
@@ -132,6 +133,7 @@ class Shipping extends Component{
                 {/*>*/}
                 <button id="review_submit" type="submit" className="red_button message_submit_btn trans_300" value="Submit">Go to pay</button>
                 {/*</StripeCheckout>*/}
+
               </div>
               </form>
               </div>
