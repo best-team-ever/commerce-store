@@ -23,6 +23,8 @@ app.get("*", (request, result) => {
   result.sendFile(path.resolve("./build/index.html"));
 });
 
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 app.post("/charge", (request, result) => {
   // here we need to calculate the price to pay depending on request infos
   // const amount = calculateAmount(request.body.products);
