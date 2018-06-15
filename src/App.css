@@ -886,7 +886,7 @@ section
 .banner
 {
 	width: 100%;
-	margin-top: 30px;
+	margin-top: 10px;
 }
 .banner_item
 {
@@ -898,10 +898,12 @@ section
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 265px;
+	height: 180px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
+  border: solid 1px #ecedee;
+  margin: 5px;
 }
 .banner_category
 {
@@ -910,16 +912,16 @@ section
 	min-width: 180px;
 	padding-left: 25px;
 	padding-right: 25px;
+  opacity: .8;
 }
 .banner_category a
 {
 	display: block;
 	color: #1e1e27;
 	text-transform: uppercase;
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: 600;
 	text-align: center;
-	line-height: 50px;
 	width: 100%;
 	-webkit-transition: color 0.3s ease;
 	-moz-transition: color 0.3s ease;
