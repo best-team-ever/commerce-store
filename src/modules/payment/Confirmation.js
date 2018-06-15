@@ -4,11 +4,6 @@ import { bindActionCreators } from "redux";
 import { createOrder } from "../../store/actions/cartAction";
 import { withRouter } from "react-router-dom";
 
-import TopNav from "../header/TopNav";
-import MainNav from '../header/MainNav';
-import HamburgerMenu from '../header/HamburgerMenu';
-import Footer from '../footer/Footer';
-
 class Confirmation extends Component{
   getProductsOfCart(){
     let { productsOfCart } = this.props;
@@ -43,7 +38,7 @@ class Confirmation extends Component{
   render(){
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let productsList = [];
-    let shipping = this. getShipping();
+    let shipping = this.getShipping();
     let payment = this.getPayment();
 
     console.log("this.getProductsOfCart(): ", this.getProductsOfCart());
@@ -56,15 +51,7 @@ class Confirmation extends Component{
     }
 
     return (
-      <div className="App">
-        <header className="header">
-          <TopNav/>
-          <MainNav/>
-        </header>
-        <div className="fs_menu_overlay"></div>
-        <HamburgerMenu/>
-        <div className="main_slider"/>
-
+      <div>
         <ul>
           {productsList}
         </ul>
@@ -78,7 +65,6 @@ class Confirmation extends Component{
         </ul>
 
         <button onClick={this.confirmPayment}>Confirm</button>
-        <Footer/>
       </div>
     )
   }

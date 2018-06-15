@@ -14,7 +14,6 @@ class MainNav extends Component {
 
   render() {
     let numberProductsOfCart = this.getProductOfCart().productsOfCart.length? this.getProductOfCart().productsOfCart.length : 0;
-    const propsss = this.props
 
     return (
       <div className="main_nav_container">
