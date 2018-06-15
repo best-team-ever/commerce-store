@@ -249,6 +249,15 @@
   border-radius: 50%;
 }
 
+
+.myAccount {
+  padding-top: 15px;
+}
+
+.myAccountPicture {
+  height: 200px;
+}
+
 .accountcenter {
   display: flex;
   text-align: center;
@@ -261,6 +270,3 @@
   padding-top: 2px;
 }
 
-/* .top_nav_right {
-  padding-top: 10px;
-} */

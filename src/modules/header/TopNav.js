@@ -87,14 +87,13 @@ class TopNav extends Component {
                     <a href="./">
                     {
                       this.getLoginStatus().loggedIn
-                      ? <p> <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
 
-                        <i className="fa fa-angle-down"></i>
-                      </p>
-                      : <p className="accountcenter">&nbsp;&nbsp;My Account&nbsp;&nbsp;
-                        <i className="fa fa-angle-down"></i>
-                      </p>
-
+                      ? <p className="myAccountPicture" > <img className="profilepic" src={this.state.pic}/> {this.state.name}&nbsp;&nbsp;
+                          <i className="fa fa-angle-down"></i>
+                        </p>
+                      : <p className="myAccount">My Account&nbsp;&nbsp;
+                          <i className="fa fa-angle-down"></i>
+                        </p>
 
                     }
                     </a>
