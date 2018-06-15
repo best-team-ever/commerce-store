@@ -10,8 +10,6 @@ import {
   SIGNED,
   DELETE_CART, CHECKOUT_BEGIN, CHECKOUT_SUCCESS, CHECKOUT_FAILURE
 } from "./ActionTypes";
-import {fetchCategoriesProductsFailure, fetchCategoriesProductsSuccess} from "./productsAction";
-
 
 export const addToCart = (newProduct) => ({
   type: ADD_TO_CART,

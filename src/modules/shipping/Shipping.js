@@ -141,7 +141,7 @@ class Shipping extends Component{
             )
           : (
             <div class="text-center">
-              <img src="./images/logoGoogle.png" width="72" height="72"/>
+              <img src="./images/logoGoogle.png" width="72" height="72" alt="Google"/>
                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <GoogleLogin
                 className="btn btn-primary"
