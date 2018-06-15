@@ -14,6 +14,7 @@ class ProductDetail extends Component{
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleGoToProductDetail = this.handleGoToProductDetail.bind(this);
   }
 
   returnToCategory = () => {
@@ -70,6 +71,10 @@ class ProductDetail extends Component{
     }
 
     this.props.history.push("/cart");
+  }
+
+  handleGoToProductDetail(){
+    this.props.history.push(`/products/${this.getProductDetail().product.id}`);
   }
 
   componentDidMount(){
