@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 import { fetchCategories } from "../../store/actions/categoriesAction";
-import qs from "query-string";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import './categories.css';
 import {images} from './categories_images';
 const urlImage = "https://www.decathlon.fr/media/";
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
 
 class CategoriesList extends Component{
   getCategories(startId, numItem){
@@ -26,7 +36,7 @@ class CategoriesList extends Component{
   render(){
     const nbByPage = 12;
     let first = 1;
-    const query = qs.parse(this.props.location.search).range;
+    const query = getQueryVariable("range");
     if (query) {
       first = Number.parseInt(query.split("-")[0], 10);
     }
