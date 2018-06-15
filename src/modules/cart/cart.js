@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-// import { bindActionCreators } from "redux";
-// import { deleteFromCart, updateQty } from "../../store/actions/cartAction";
 import { deleteFromCartHandler, deleteCartHandler, updateQtyHandlers } from "../../store/handlers/cartHandlers";
-
 
 import './cart.css';
 
@@ -12,12 +9,6 @@ const urlImage = "https://www.decathlon.fr/media/";
 let total = 0;
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-
-    this.return = this.return.bind (this);
-    this.validCart = this.validCart.bind (this);
-  }
 
   getProductsOfCart(){
     let { productsOfCart } = this.props;
@@ -35,7 +26,7 @@ class Cart extends Component {
   };
 
   increment = (qty, index) => {
-    const qtyInt = parseInt(qty);
+    const qtyInt = parseInt(qty, 10);
     this.props.updateQty(qtyInt + 1, index)
    };
 
@@ -43,19 +34,14 @@ class Cart extends Component {
     if (qty === 1) {
       this.deleteItem(productId)
     } else {
-    const qtyInt = parseInt(qty);
-    this.props.updateQty(qtyInt - 1, index)
+      const qtyInt = parseInt(qty, 10);
+      this.props.updateQty(qtyInt - 1, index)
     }
   };
 
   deleteItem = (productId) => {
     console.log("deleteItem");
-    // console.log("thisprops",this.props);
     this.props.deleteFromCart(productId);
-  };
-
-  deleteCart = () => {
-    this.props.deleteCart();
   };
 
   deleteCart = () => {
@@ -79,7 +65,6 @@ class Cart extends Component {
   }
 
   render(){
-    console.log("props Cart", this.props);
     let productsOfCart = this.getProductsOfCart().productsOfCart;
     let numberProducts = this.getProductsOfCart().productsOfCart.length? this.getProductsOfCart().productsOfCart.length:0;
 
@@ -123,7 +108,6 @@ class Cart extends Component {
       );
     }
 
-
     return (
       <div className="card_container">
         <div>
@@ -148,13 +132,12 @@ class Cart extends Component {
           <div className="cardCoteACote">
             <button type="button" className="btn btn-secondary" onClick={this.return}>Return</button>
             <button type="button" className="btn btn-light" onClick={this.deleteCart}>Clear cart</button>
-            {
-              numberProducts?
-                (
-                  <Link to="/shipping">
+            {numberProducts
+              ? (<Link to="/shipping">
                     <button type="button" className="btn btn-primary" onClick={this.validCart}>Valid</button>
                   </Link>
-                ):null
+                )
+              : null
             }
           </div>
         </div>
@@ -167,10 +150,6 @@ class Cart extends Component {
 const mapStateToProps = (state) => ({
   productsOfCart: state.cartReducer.productsOfCart
 })
-
-// const mapDispatchToProps = (dispatch) => {
-//   bindActionCreators({ deleteFromCart, updateQty }, dispatch)
-// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
