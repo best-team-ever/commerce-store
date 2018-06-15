@@ -17,6 +17,12 @@ app.use(require("body-parser").urlencoded({ extended: false }));
 
 app.use(require("body-parser").json());
 
+const path = require("path");
+app.use("/static", express.static("./build/static"));
+app.get("*", (request, result) => {
+  result.sendFile(path.resolve("./build/index.html"));
+});
+
 app.post("/charge", (request, result) => {
   // here we need to calculate the price to pay depending on request infos
   // const amount = calculateAmount(request.body.products);
